@@ -1,0 +1,27 @@
+{
+  "name": "password-backpack",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-scripts": "1.1.0"
+  },
+  "homepage": "./",
+  "main": "src/electron-starter.js",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "electron": "../../../../.nvm/versions/node/v6.9.1/lib/node_modules/electron/dist/electron electron.starter.js",
+    "electron-dev": "ELECTRON_START_URL=http://localhost:3000 npm run electron",
+    "start-dev": "$(npm bin)/concurrently 'npm run electron-dev' $(npm bin)/wait-on 'npm start'"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.1",
+    "electron": "^1.8.2",
+    "foreman": "^2.0.0",
+    "wait-on": "^2.1.0"
+  }
+}
