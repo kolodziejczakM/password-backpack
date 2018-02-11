@@ -3,8 +3,8 @@ import React from 'react'
 export default () => {
   const labels = {
     madeBy: 'Icons made by ',
-    pageSource: 'from',
-    licensedBy: 'is licensed by '
+    pageSource: ' from',
+    licensedBy: ' is licensed by '
   };
 
   const links = {
