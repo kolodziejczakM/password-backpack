@@ -1,23 +1,18 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import routes from '../routes';
 import Header from './common/header/Header';
-// import PropTypes from 'prop-types';
+import Footer from './common/footer/Footer';
 
 class App extends Component {
   render() {
     return (
-      <main>
-        <Header/>
-        <section className="main-content-wrapper">
-          {routes}
-        </section>
-      </main>
+    <Fragment>
+      <Header/>
+      <main>{routes}</main>
+      <Footer/>
+    </Fragment>
     );
   }
 }
-
-// App.propTypes = {
-//   children: PropTypes.object.isRequired
-// };
 
 export default App;
