@@ -9,12 +9,12 @@ class DashboardPage extends React.Component {
   render() {
     return (
       <section className="dashboard-page">
-        <Tile goAfterClick="/about" 
+        <Tile goAfterClick="/create-new" 
               imageSource={Plus} 
               alternativeText="Click to create new password file" 
               descriptiveText="create new password file">
         </Tile>
-        <Tile goAfterClick="/about" 
+        <Tile goAfterClick="/create-new" 
               imageSource={Key} 
               alternativeText="Click to decrypt existing file" 
               descriptiveText="Decrypt existing file">
