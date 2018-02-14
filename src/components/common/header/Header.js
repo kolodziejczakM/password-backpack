@@ -7,9 +7,9 @@ export default () => {
   const tagline = 'All passwords in one place';
 
   return (
-    <header>
+    <header className="application-header">
       <Logo></Logo>
-      <h1>{applicationName}</h1>
+      <h1 className="application-heading-text">{applicationName}</h1>
       <h3>{tagline}</h3>
     </header>
   );

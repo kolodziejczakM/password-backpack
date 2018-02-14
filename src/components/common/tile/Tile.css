@@ -1,27 +1,33 @@
 figure {
-    margin: 0;
+  margin: 0;
 }
 
 .tile {
-    display: inline-block;
-    border: 1px solid #e5e5e5;
-    text-align: center;
-    border-radius: 4px;
-    padding: 25px;
-    margin: 20px;
+  display: inline-block;
+  border: 1px solid #e5e5e5;
+  background: transparent;
+  text-align: center;
+  border-radius: 4px;
+  padding: 25px;
+  margin: 20px;
+  cursor: pointer;
 }
 
 .tile:hover {
-    background: #dfdfdf;
-    text-decoration: none;
+  background: #dfdfdf;
+  text-decoration: none;
+}
+
+.tile:focus {
+  outline: none;
 }
 
 .tile__image {
-    width: 50px;
-    height: 50px;
-    margin-bottom: 15px;
+  width: 50px;
+  height: 50px;
+  margin-bottom: 15px;
 }
 
 .tile__description {
-    font-size: 14px;
+  font-size: 14px;
 }
