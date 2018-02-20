@@ -4,8 +4,10 @@ import './DashboardPage.css';
 import Tile from '../common/tile/Tile';
 import Plus from '../../icons/plus.svg';
 import Key from '../../icons/key.svg';
+import swal from 'sweetalert';
 
 const electron = window.require('electron');
+const fs = electron.remote.require('fs');
 const { dialog } = electron.remote;
 
 class DashboardPage extends React.Component {
@@ -14,12 +16,16 @@ class DashboardPage extends React.Component {
 
     this.navigateToCreator = this.navigateToCreator.bind(this);
     this.showOpenFileDialog = this.showOpenFileDialog.bind(this);
+    this.parseJsonFile = this.parseJsonFile.bind(this);
 
     this.staticTexts = new Map([
       ['alt.create_new', 'Click to create new password file'],
       ['desc.create_new', 'Create new password file'],
       ['alt.decrypt', 'Click to decrypt existing file'],
       ['desc.decrypt', 'Decrypt existing file'],
+      ['alert.header', 'Oops'],
+      ['alert.text', 'Something went wrong!'],
+      ['alert.type_error', 'error']
     ]);
   }
 
@@ -38,8 +44,24 @@ class DashboardPage extends React.Component {
   }
 
   parseJsonFile(name) {
-    const [fileName] = name;
-    console.log(fileName);
+    const [filePath] = name;
+
+    fs.readFile(filePath, { encoding: 'utf-8' }, (err, fileContent) => {
+
+      if (!err && !this.isFileEmpty(fileContent)) {
+        // const data = JSON.parse(fileContent);
+      } else {
+        swal(
+          this.staticTexts.get('alert.header'),
+          this.staticTexts.get('alert.text'), 
+          this.staticTexts.get('alert.type_error')
+        );
+      }
+    });
+  }
+
+  isFileEmpty(fileContent) {
+    return fileContent.length === 0;
   }
 
   render() {
