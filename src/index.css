@@ -11,5 +11,6 @@
 }
 
 html, body {
+  height: 100%;
   font-family: LatoRegular, sans-serif;
 }
