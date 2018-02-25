@@ -21,14 +21,10 @@ function createWindow () {
     protocol: 'file:',
     slashes: true
   });
-
-  //`file://${path.join(__dirname, '../build/index.html')}`
-
-  console.log('startUrl: ', startUrl);
   
   mainWindow.loadURL(startUrl);
   // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+  //mainWindow.webContents.openDevTools()
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
