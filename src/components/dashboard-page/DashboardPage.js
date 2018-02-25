@@ -1,8 +1,10 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import { compose } from 'ramda';
 import './DashboardPage.css';
 import Tile from '../common/tile/Tile';
 import NetworkStatusBar from '../common/network-status-bar/NetworkStatusBar';
+import withNetworkStatus from '../common/HOCs/withNetworkStatus';
 import Plus from '../../icons/plus.svg';
 import Key from '../../icons/key.svg';
 import swal from 'sweetalert';
@@ -15,8 +17,6 @@ class DashboardPage extends React.Component {
   constructor() {
     super();
 
-    // TODO: remove after leverage HoC -> choose fn for composing HoC
-    this.updateOnlineStatus = this.updateOnlineStatus.bind(this);
     this.navigateToCreatorIfOffline = this.navigateToCreatorIfOffline.bind(this);
     this.showOpenFileDialogIfOffline = this.showOpenFileDialogIfOffline.bind(this);
     this.parseJsonFile = this.parseJsonFile.bind(this);
@@ -27,56 +27,36 @@ class DashboardPage extends React.Component {
       ['alt.decrypt', 'Click to decrypt existing file'],
       ['desc.decrypt', 'Decrypt existing file'],
       ['alert.text.empty_file', 'Chosen file is empty. You have to choose password file.'],
-      ['alert.text.user_online', 'You have to be offline to continue.']
+      ['alert.text.user_online', 'Being online due creating password file may cause password interception.']
     ]);
 
-    // TODO: remove after leverage HoC -> choose fn for composing HoC
-    this.state = {
-      online: navigator.onLine
-    };
+    this.offlineAlertOptions = { buttons: { cancel: true, confirm: true}, dangerMode: true };
   }
 
-  // TODO: remove after leverage HoC -> choose fn for composing HoC
-  componentDidMount() {
-    window.addEventListener('online',  this.updateOnlineStatus);
-    window.addEventListener('offline', this.updateOnlineStatus);
+  async navigateToCreatorIfOffline() {
+    if (await this.getUserOnlineAgreement()) {
+      this.props.history.push('/create-new');
+    }
   }
 
-  // TODO: remove after leverage HoC -> choose fn for composing HoC
-  componentWillUnmount() {
-    window.removeEventListener('online',  this.updateOnlineStatus);
-    window.removeEventListener('offline', this.updateOnlineStatus);
+  async showOpenFileDialogIfOffline() {
+    if (await this.getUserOnlineAgreement()) {
+      dialog.showOpenDialog(
+        {  
+          properties: ['openFile'],
+          filters: [{ name: 'All Files', extensions: ['json'] }]
+        },
+        this.parseJsonFile
+      );
+    }
   }
 
-  // TODO: remove after leverage HoC -> choose fn for composing HoC
-  updateOnlineStatus() {
-    this.setState({
-      online: navigator.onLine
-    });
-  }
-
-  navigateToCreatorIfOffline() {
-    if(this.isOnline()) {
-      swal(this.staticTexts.get('alert.text.user_online'));
-      return;
+  getUserOnlineAgreement() {
+    if(this.props.isOnline) {
+      return swal(this.staticTexts.get('alert.text.user_online'), this.offlineAlertOptions).then(userAgrees => userAgrees);
     }
 
-    this.props.history.push('/create-new');
-  }
-
-  showOpenFileDialogIfOffline() {
-    if(this.isOnline()) {
-      swal(this.staticTexts.get('alert.text.user_online'));
-      return;
-    }
-
-    dialog.showOpenDialog(
-      {  
-        properties: ['openFile'],
-        filters: [{ name: 'All Files', extensions: ['json'] }]
-      },
-      this.parseJsonFile
-    );
+    return Promise.resolve(true);
   }
 
   parseJsonFile(name) {
@@ -93,10 +73,6 @@ class DashboardPage extends React.Component {
         swal(this.staticTexts.get('alert.text.empty_file'));
       }
     });
-  }
-
-  isOnline() {
-    return this.state.online;
   }
 
   isFileEmpty(fileContent) {
@@ -122,4 +98,4 @@ class DashboardPage extends React.Component {
   }
 }
 
-export default withRouter(DashboardPage);
+export default compose(withRouter, withNetworkStatus)(DashboardPage);
