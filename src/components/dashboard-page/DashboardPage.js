@@ -85,14 +85,14 @@ class DashboardPage extends React.Component {
         <Tile doAfterClick={this.navigateToCreatorIfOffline}
               imageSource={Plus} 
               alternativeText={this.staticTexts.get('alt.create_new')} 
-              descriptiveText={this.staticTexts.get('desc.create_new')}>
-        </Tile>
+              descriptiveText={this.staticTexts.get('desc.create_new')}/>
+       
         <Tile doAfterClick={this.showOpenFileDialogIfOffline} 
               imageSource={Key} 
               alternativeText={this.staticTexts.get('alt.decrypt')} 
-              descriptiveText={this.staticTexts.get('desc.decrypt')}>
-        </Tile>
-        <NetworkStatusBar></NetworkStatusBar>
+              descriptiveText={this.staticTexts.get('desc.decrypt')}/>
+
+        <NetworkStatusBar/>
       </section>
     );
   }

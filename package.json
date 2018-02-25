@@ -1,27 +1,37 @@
 {
   "name": "password-backpack",
+  "description": "Secure password manager",
   "version": "0.1.0",
   "private": true,
+  "author": {
+    "name": "Marcin Kołodziejczak",
+    "email": "kolodziejczak.mn@gmail.com"
+  },
   "dependencies": {
     "ramda": "^0.25.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.0",
     "sweetalert": "^2.1.0"
   },
   "homepage": "./",
-  "main": "src/electron-starter.js",
+  "main": "build/electron.js",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "electron-dev": "ELECTRON_START_URL=http://localhost:3000 electron electron.starter.js",
-    "start-dev": "concurrently 'npm start' 'npm run electron-dev'"
+    "electron-dev": "ELECTRON_START_URL=http://localhost:3000 electron public/electron.js",
+    "start-dev": "concurrently 'npm start' 'npm run electron-dev'",
+    "preelectron-pack": "yarn build",
+    "electron-pack": "electron-packager . --platform linux --arch x64 --out dist/",
+    "deb64": "electron-installer-debian --src dist/password-backpack-linux-x64/ --dest dist/installers/ --arch amd64 --description Secure password manager"
   },
   "devDependencies": {
     "concurrently": "^3.5.1",
     "electron": "^1.8.2",
-    "react-router-dom": "^4.2.2"
+    "electron-installer-debian": "^0.8.1",
+    "electron-packager": "^11.0.1"
   }
 }
