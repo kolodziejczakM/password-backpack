@@ -27,8 +27,12 @@ class CreateNewPage extends React.Component {
   }
 }
 
+CreateNewPage.defaultProps = {
+  history: PropTypes.object,
+};
+
 CreateNewPage.propTypes = {
-  history: PropTypes.isRequired,
+  history: PropTypes.shape({ push: PropTypes.func }),
 };
 
 export default withRouter(CreateNewPage);

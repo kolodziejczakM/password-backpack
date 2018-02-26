@@ -104,9 +104,14 @@ class DashboardPage extends React.Component {
   }
 }
 
+DashboardPage.defaultProps = {
+  history: PropTypes.object,
+  isOnline: PropTypes.bool,
+};
+
 DashboardPage.propTypes = {
-  isOnline: PropTypes.bool.isRequired,
-  history: PropTypes.isRequired,
+  history: PropTypes.shape({ push: PropTypes.func }),
+  isOnline: PropTypes.bool,
 };
 
 export default compose(withRouter, withNetworkStatus)(DashboardPage);
