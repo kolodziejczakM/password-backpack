@@ -4,7 +4,7 @@ import './Header.css';
 
 export default () => {
   const applicationName = 'Password backpack';
-  const tagline = 'All passwords in one place';
+  const tagline = 'All passwords in one place'
 
   return (
     <header className="application-header">
