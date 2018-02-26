@@ -13,7 +13,7 @@ const Tile = props => (
 
 Tile.propTypes = {
   doAfterClick: PropTypes.func.isRequired,
-  imageSource: PropTypes.isRequired,
+  imageSource: PropTypes.string.isRequired,
   alternativeText: PropTypes.string.isRequired,
   descriptiveText: PropTypes.string.isRequired,
 };
