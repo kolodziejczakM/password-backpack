@@ -1,0 +1,13 @@
+# /node_modules/* and /bower_components/* ignored by default
+
+# Ignore built files
+build/*
+
+# Ignore dist files
+dist/*
+
+# Ignore CRA specific files
+src/registerServiceWorker.js
+
+# Ignore Electron starter file
+public/electron.js

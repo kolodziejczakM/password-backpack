@@ -1,9 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import './CreateNewPage.css';
 
 class CreateNewPage extends React.Component {
-
   constructor() {
     super();
     this.goToDashboard = this.goToDashboard.bind(this);
@@ -14,9 +14,9 @@ class CreateNewPage extends React.Component {
   }
 
   render() {
-      const staticTexts = {
-        header: 'Create new password file'
-      };
+    const staticTexts = {
+      header: 'Create new password file',
+    };
 
     return (
       <section>
@@ -26,5 +26,9 @@ class CreateNewPage extends React.Component {
     );
   }
 }
+
+CreateNewPage.propTypes = {
+  history: PropTypes.isRequired,
+};
 
 export default withRouter(CreateNewPage);

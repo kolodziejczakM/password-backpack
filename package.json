@@ -8,6 +8,7 @@
     "email": "kolodziejczak.mn@gmail.com"
   },
   "dependencies": {
+    "prop-types": "^15.6.0",
     "ramda": "^0.25.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -19,19 +20,27 @@
   "main": "build/electron.js",
   "scripts": {
     "start": "react-scripts start",
+    "lint": "eslint ./",
+    "prebuild": "npm run lint",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "electron-dev": "ELECTRON_START_URL=http://localhost:3000 electron public/electron.js",
     "start-dev": "concurrently 'npm start' 'npm run electron-dev'",
-    "preelectron-pack": "yarn build",
+    "preelectron-pack": "npm run build",
     "electron-pack": "electron-packager . --platform linux --arch x64 --out dist/",
     "deb64": "electron-installer-debian --src dist/password-backpack-linux-x64/ --dest dist/installers/ --arch amd64 --description Secure password manager"
   },
+  "pre-push": ["lint"],
   "devDependencies": {
     "concurrently": "^3.5.1",
     "electron": "^1.8.2",
     "electron-installer-debian": "^0.8.1",
-    "electron-packager": "^11.0.1"
+    "electron-packager": "^11.0.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0",
+    "pre-push": "^0.1.1"
   }
 }

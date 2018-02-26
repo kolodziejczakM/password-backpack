@@ -7,7 +7,7 @@ import registerServiceWorker from './registerServiceWorker';
 
 render(
   <HashRouter><App /></HashRouter>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
 
 registerServiceWorker();

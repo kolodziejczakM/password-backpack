@@ -6,29 +6,29 @@ const withNetworkStatus = WrappedComponent => class extends React.Component {
     this.updateOnlineStatus = this.updateOnlineStatus.bind(this);
 
     this.state = {
-      isOnline: navigator.onLine
+      isOnline: navigator.onLine,
     };
   }
 
-  updateOnlineStatus() {
-    this.setState({
-      isOnline: navigator.onLine
-    });
-  }
-
   componentDidMount() {
-    window.addEventListener('online',  this.updateOnlineStatus);
+    window.addEventListener('online', this.updateOnlineStatus);
     window.addEventListener('offline', this.updateOnlineStatus);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('online',  this.updateOnlineStatus);
+    window.removeEventListener('online', this.updateOnlineStatus);
     window.removeEventListener('offline', this.updateOnlineStatus);
+  }
+
+  updateOnlineStatus() {
+    this.setState({
+      isOnline: navigator.onLine,
+    });
   }
 
   render() {
     return (
-      <WrappedComponent {...this.props} isOnline={this.state.isOnline}/>
+      <WrappedComponent {...this.props} isOnline={this.state.isOnline} />
     );
   }
 };
