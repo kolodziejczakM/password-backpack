@@ -1,45 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import './CreateNewPage.css';
-import Tile from '../common/tile/Tile';
-import Plus from '../../icons/plus.svg';
+import AddServiceForm from './add-service-form/AddServiceForm';
+
+const staticTexts = new Map([
+  ['page.create_new.header', 'Create new password file'],
+  ['page.go_back', 'Go back'],
+  ['alt.service_new', 'Click to add new service'],
+  ['desc.service_new', 'Add new service'],
+]);
 
 class CreateNewPage extends React.Component {
   constructor() {
     super();
     this.goToDashboard = this.goToDashboard.bind(this);
-    this.showNewServiceForm = this.showNewServiceForm.bind(this);
-
-    this.staticTexts = new Map([
-      ['page.create_new.header', 'Create new password file'],
-      ['page.go_back', 'Go back'],
-      ['alt.service_new', 'Click to add new service'],
-      ['desc.service_new', 'Add new service'],
-    ]);
+    this.addService = this.addService.bind(this);
   }
 
   goToDashboard() {
     this.props.history.push('/');
   }
 
-  showNewServiceForm() {
-    console.log('this: ', this);
+  addService() {
+    console.log('Add service function', this);
   }
 
   render() {
     return (
       <section>
         <header>
-          <button onClick={this.goToDashboard}>{this.staticTexts.get('page.go_back')}</button>
-          <h1 className="create-new-page-heading-text">{this.staticTexts.get('page.create_new.header')}</h1>
+          <button onClick={this.goToDashboard}>{staticTexts.get('page.go_back')}</button>
+          <h1 className="create-new-page-heading-text">{staticTexts.get('page.create_new.header')}</h1>
         </header>
-        <Tile
-          doAfterClick={this.showNewServiceForm}
-          imageSource={Plus}
-          alternativeText={this.staticTexts.get('alt.service_new')}
-          descriptiveText={this.staticTexts.get('desc.service_new')}
-        />
+        <AddServiceForm onFormSubmit={this.addService} />
+        <hr />
+        <section className="services"> HERE WILL BE SERVICE LIST</section>
       </section>
     );
   }

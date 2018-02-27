@@ -19,6 +19,15 @@ function isFileEmpty(fileContent) {
   return fileContent.length === 0;
 }
 
+const staticTexts = new Map([
+  ['alt.create_new', 'Click to create new password file'],
+  ['desc.create_new', 'Create new password file'],
+  ['alt.decrypt', 'Click to decrypt existing file'],
+  ['desc.decrypt', 'Decrypt existing file'],
+  ['alert.text.empty_file', 'Chosen file is empty. You have to choose password file.'],
+  ['alert.text.user_online', 'Being online due creating password file may cause password interception.'],
+]);
+
 class DashboardPage extends React.Component {
   constructor() {
     super();
@@ -27,21 +36,12 @@ class DashboardPage extends React.Component {
     this.showOpenFileDialogIfOffline = this.showOpenFileDialogIfOffline.bind(this);
     this.parseJsonFile = this.parseJsonFile.bind(this);
 
-    this.staticTexts = new Map([
-      ['alt.create_new', 'Click to create new password file'],
-      ['desc.create_new', 'Create new password file'],
-      ['alt.decrypt', 'Click to decrypt existing file'],
-      ['desc.decrypt', 'Decrypt existing file'],
-      ['alert.text.empty_file', 'Chosen file is empty. You have to choose password file.'],
-      ['alert.text.user_online', 'Being online due creating password file may cause password interception.'],
-    ]);
-
     this.offlineAlertOptions = { buttons: { cancel: true, confirm: true }, dangerMode: true };
   }
 
   getUserOnlineAgreement() {
     if (this.props.isOnline) {
-      return swal(this.staticTexts.get('alert.text.user_online'), this.offlineAlertOptions).then(userAgrees => userAgrees);
+      return swal(staticTexts.get('alert.text.user_online'), this.offlineAlertOptions).then(userAgrees => userAgrees);
     }
 
     return Promise.resolve(true);
@@ -74,9 +74,10 @@ class DashboardPage extends React.Component {
 
     fs.readFile(filePath, { encoding: 'utf-8' }, (err, fileContent) => {
       if (!err && !isFileEmpty(fileContent)) {
+        console.log('ParseJsonFile: ', this);
         // const data = JSON.parse(fileContent);
       } else {
-        swal(this.staticTexts.get('alert.text.empty_file'));
+        swal(staticTexts.get('alert.text.empty_file'));
       }
     });
   }
@@ -87,15 +88,15 @@ class DashboardPage extends React.Component {
         <Tile
           doAfterClick={this.navigateToCreatorIfOffline}
           imageSource={Plus}
-          alternativeText={this.staticTexts.get('alt.create_new')}
-          descriptiveText={this.staticTexts.get('desc.create_new')}
+          alternativeText={staticTexts.get('alt.create_new')}
+          descriptiveText={staticTexts.get('desc.create_new')}
         />
 
         <Tile
           doAfterClick={this.showOpenFileDialogIfOffline}
           imageSource={Key}
-          alternativeText={this.staticTexts.get('alt.decrypt')}
-          descriptiveText={this.staticTexts.get('desc.decrypt')}
+          alternativeText={staticTexts.get('alt.decrypt')}
+          descriptiveText={staticTexts.get('desc.decrypt')}
         />
 
         <NetworkStatusBar />
