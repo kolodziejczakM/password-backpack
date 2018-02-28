@@ -4,15 +4,13 @@ import './Footer.css';
 export default () => {
   const labels = {
     madeBy: 'Icons made by ',
-    pageSource: ' from',
+    pageSource: ' from ',
     licensedBy: ' is licensed by ',
   };
 
   const links = {
     iconsAuthor: {
-      text: 'Pixel Buddha',
-      title: 'Pixel Buddha',
-      href: 'https://www.flaticon.com/authors/pixel-buddha',
+      text: 'Pixel Buddha & Freepik & Dave Gandy & Pixel perfect & UIUXER',
     },
     iconsPage: {
       text: 'www.flaticon.com',
@@ -34,10 +32,8 @@ export default () => {
         {appAuthorCredentials}
       </div>
       <div>
-        {labels.madeBy}
-        <a href={links.iconsAuthor.href} title={links.iconsAuthor.title}>
-          {links.iconsAuthor.text}
-        </a>
+        {labels.madeBy} {links.iconsAuthor.text}
+
         {labels.pageSource}
         <a href={links.iconsPage.href} title={links.iconsPage.title}>
           {links.iconsPage.text}

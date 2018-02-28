@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { head } from 'ramda';
+import CustomIcon from '../../../icons/services/custom.svg';
+import DropboxIcon from '../../../icons/services/dropbox.svg';
 
 const PASSWORD_ID = 'PASSWORD';
 const LOGIN_ID = 'LOGIN';
@@ -14,28 +16,42 @@ const staticTexts = new Map([
   ['button.submit_label', 'Append service'],
 ]);
 
-const createServiceTemplate = (templateName, name, icon = '', passwordValue = '') => {
-  if (name === undefined) {
-    return {
-      templateName,
-      name: templateName,
-      icon,
-      passwordValue,
-    };
-  }
-
-  return {
+// TODO: Move to HoC / Render props
+const createServiceTemplate = (templateName, name = templateName, icon = '', passwordValue = '') => (
+  {
     templateName, name, icon, passwordValue,
-  };
-};
+  }
+);
 
+// TODO: Move to HoC / Render props
+const serviceNames = [
+  'Dropbox',
+  // 'Facebook',
+  // 'Gmail',
+  // 'Google+',
+  // 'Instagram',
+  // 'Linkedin',
+  // 'Medium',
+  // 'Mega',
+  // 'Netflix',
+  // 'PayPal',
+  // 'Pinterest',
+  // 'Skype',
+  // 'SoundCloud',
+  // 'Spotify',
+  // 'Telegram',
+  // 'Trello',
+  // 'Twitter',
+  // 'Unsplash',
+  // 'WhatsApp',
+  // 'Wordpress',
+  // 'Youtube',
+];
+
+// TODO: Move to HoC / Render props
 const serviceTemplates = [
-  createServiceTemplate('Custom', ''),
-  createServiceTemplate('Gmail'),
-  createServiceTemplate('Facebook'),
-  createServiceTemplate('Twitter'),
-  createServiceTemplate('Medium'),
-  createServiceTemplate('Unsplash'),
+  createServiceTemplate('Custom', '', CustomIcon),
+  ...serviceNames.map(serviceName => createServiceTemplate(serviceName, undefined, `${serviceName}Icon`)),
 ];
 
 const getServicetemplateByName = templateName => (
@@ -135,6 +151,10 @@ class AddServiceForm extends React.Component {
             onChange={this.onPasswordValueChange}
           />
         </fieldset>
+        <div>
+          <img alt="Service icon preview" width="100" height="100" src={CustomIcon} />
+          <img alt="Service icon preview 2" width="100" height="100" src={DropboxIcon} />
+        </div>
         <button type="submit">{staticTexts.get('button.submit_label')}</button>
       </form>
     );

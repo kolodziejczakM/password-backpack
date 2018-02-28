@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 512 512" enable-background="new 0 0 512 512" width="512px" height="512px">
+  <g>
+    <path d="M374,0H138C61.8,0,0,61.8,0,138v236c0,76.2,61.8,138,138,138h236c76.2,0,138-61.8,138-138V138C512,61.8,450.2,0,374,0z    M351,330h-45l14.6-84.75L260.4,298H237l-43.1-52.75L180,330h-44.3l25.9-147h41.2l54.5,65.2l74.1-65.2h44.9L351,330z" fill="#D80027"/>
+  </g>
+</svg>
