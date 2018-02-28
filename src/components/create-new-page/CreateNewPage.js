@@ -14,14 +14,14 @@ class CreateNewPage extends React.Component {
   constructor() {
     super();
     this.goToDashboard = this.goToDashboard.bind(this);
-    this.addService = this.addService.bind(this);
   }
 
   goToDashboard() {
     this.props.history.push('/');
   }
 
-  addService() {
+  addService(stateFromChild) {
+    console.log('stateFromChild: ', stateFromChild);
     console.log('Add service function', this);
   }
 

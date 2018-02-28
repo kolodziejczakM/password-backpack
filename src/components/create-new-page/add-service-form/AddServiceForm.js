@@ -8,26 +8,49 @@ const LOGIN_ID = 'LOGIN';
 const staticTexts = new Map([
   ['select.login', 'Login'],
   ['select.password', 'Password'],
-  ['placeholder.password', 'Type your password'],
-  ['label.choose.service', 'Choose a service template:'],
-  ['label.name.service', 'Name current service template:'],
+  ['placeholder.password', 'Type the value'],
+  ['label.choose.service_template', 'Choose a service template:'],
+  ['label.choose.service_name', 'Name current service:'],
+  ['button.submit_label', 'Append service'],
 ]);
 
-const createService = (name, icon) => ({ name, icon, passwordValue: '' });
+const createServiceTemplate = (templateName, name, icon = '', passwordValue = '') => {
+  if (name === undefined) {
+    return {
+      templateName,
+      name: templateName,
+      icon,
+      passwordValue,
+    };
+  }
 
-const services = [
-  createService('Custom', ''),
-  createService('Gmail', ''),
-  createService('Facebook', ''),
-  createService('Twitter', ''),
-  createService('Medium', ''),
-  createService('Unsplash', ''),
+  return {
+    templateName, name, icon, passwordValue,
+  };
+};
+
+const serviceTemplates = [
+  createServiceTemplate('Custom', ''),
+  createServiceTemplate('Gmail'),
+  createServiceTemplate('Facebook'),
+  createServiceTemplate('Twitter'),
+  createServiceTemplate('Medium'),
+  createServiceTemplate('Unsplash'),
 ];
+
+const getServicetemplateByName = templateName => (
+  serviceTemplates.find(template => template.templateName === templateName)
+);
 
 const passwordTypes = [
   { label: staticTexts.get('select.password'), value: PASSWORD_ID },
   { label: staticTexts.get('select.login'), value: LOGIN_ID },
 ];
+
+const initialState = {
+  service: head(serviceTemplates),
+  passwordType: head(passwordTypes),
+};
 
 class AddServiceForm extends React.Component {
   constructor() {
@@ -38,15 +61,11 @@ class AddServiceForm extends React.Component {
     this.onServiceNameChange = this.onServiceNameChange.bind(this);
     this.onWholeServiceChange = this.onWholeServiceChange.bind(this);
 
-    this.state = {
-      service: head(services),
-      passwordType: head(passwordTypes),
-    };
+    this.state = initialState;
   }
 
   onPasswordValueChange(event) {
     this.setState({ service: { ...this.state.service, passwordValue: event.target.value } });
-    console.log('state now: ', this.state);
   }
 
   onPasswordTypeChange(event) {
@@ -58,10 +77,16 @@ class AddServiceForm extends React.Component {
   }
 
   onWholeServiceChange(event) {
-    this.setState({ service: services[event.target.value] });
+    this.setState({ service: getServicetemplateByName(event.target.value) });
   }
 
-  handleSubmit() {
+  resetForm() {
+    this.setState(initialState);
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    this.resetForm();
     this.props.onFormSubmit(this.state);
   }
 
@@ -70,17 +95,20 @@ class AddServiceForm extends React.Component {
       <form onSubmit={this.handleSubmit}>
         <fieldset>
           <label>
-            {staticTexts.get('label.choose.service')}
+            {staticTexts.get('label.choose.service_template')}
 
-            <select onChange={this.onWholeServiceChange}>
-              {services.map((service, index) => (
-                <option key={service.name} value={index}>{service.name}</option>
+            <select value={this.state.service.templateName} onChange={this.onWholeServiceChange}>
+              {serviceTemplates.map(template => (
+                <option key={template.templateName} value={template.templateName}>
+                  {template.templateName}
+                </option>
               ))}
             </select>
           </label>
 
           <label>
-            {staticTexts.get('label.name.service')}
+            {staticTexts.get('label.choose.service_name')}
+
             <input
               type="text"
               value={this.state.service.name}
@@ -92,12 +120,9 @@ class AddServiceForm extends React.Component {
         </fieldset>
 
         <fieldset>
-          <select value={this.state.keyType} onChange={this.onPasswordTypeChange}>
+          <select value={this.state.passwordType} onChange={this.onPasswordTypeChange}>
             {passwordTypes.map(passwordType => (
-              <option
-                key={passwordType.value}
-                value={passwordType.value}
-              >
+              <option key={passwordType.value} value={passwordType.value}>
                 {passwordType.label}
               </option>
             ))}
@@ -110,6 +135,7 @@ class AddServiceForm extends React.Component {
             onChange={this.onPasswordValueChange}
           />
         </fieldset>
+        <button type="submit">{staticTexts.get('button.submit_label')}</button>
       </form>
     );
   }
