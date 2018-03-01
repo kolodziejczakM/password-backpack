@@ -24,6 +24,10 @@ const passwordTypes = [
   { label: staticTexts.get('select.login'), value: LOGIN_ID },
 ];
 
+const getPasswordTypeByLabel = label => (
+  passwordTypes.find(passwordType => passwordType.label === label)
+);
+
 const initialState = {
   service: head(ServiceTemplatesProvider.getServiceTemplates()),
   passwordType: head(passwordTypes),
@@ -46,7 +50,7 @@ class AddServiceForm extends React.Component {
   }
 
   onPasswordTypeChange(event) {
-    this.setState({ passwordType: event.target.value });
+    this.setState({ passwordType: getPasswordTypeByLabel(event.target.value) });
   }
 
   onServiceNameChange(event) {
@@ -100,11 +104,11 @@ class AddServiceForm extends React.Component {
           <label className="add-service-form__label-container">
             <select
               className="add-service-form__select add-service-form__select--label"
-              value={this.state.passwordType}
+              value={this.state.passwordType.label}
               onChange={this.onPasswordTypeChange}
             >
               {passwordTypes.map(passwordType => (
-                <option key={passwordType.value} value={passwordType.value}>
+                <option key={passwordType.value} value={passwordType.label}>
                   {passwordType.label}
                 </option>
               ))}
@@ -113,7 +117,7 @@ class AddServiceForm extends React.Component {
               className="add-service-form__text-input"
               type="text"
               value={this.state.service.passwordValue}
-              placeholder={staticTexts.get('placeholder.password')}
+              placeholder={`${staticTexts.get('placeholder.password')} ${this.state.passwordType.label.toLowerCase()}`}
               onChange={this.onPasswordValueChange}
             />
           </label>
