@@ -28,9 +28,21 @@ const getPasswordTypeByLabel = label => (
   passwordTypes.find(passwordType => passwordType.label === label)
 );
 
+const formInputNames = {
+  serviceName: 'service-name',
+  passwordValue: 'password-value',
+};
+
+const initialFormState = {
+  validForm: false,
+  serviceNameValid: false,
+  passwordValueValid: false,
+};
+
 const initialState = {
   service: head(ServiceTemplatesProvider.getServiceTemplates()),
   passwordType: head(passwordTypes),
+  form: initialFormState,
 };
 
 class AddServiceForm extends React.Component {
@@ -41,11 +53,13 @@ class AddServiceForm extends React.Component {
     this.onPasswordValueChange = this.onPasswordValueChange.bind(this);
     this.onServiceNameChange = this.onServiceNameChange.bind(this);
     this.onWholeServiceChange = this.onWholeServiceChange.bind(this);
+    this.validateInput = this.validateInput.bind(this);
 
     this.state = initialState;
   }
 
   onPasswordValueChange(event) {
+    this.validateInput(event.target, 'passwordValue');
     this.setState({ service: { ...this.state.service, passwordValue: event.target.value } });
   }
 
@@ -54,13 +68,42 @@ class AddServiceForm extends React.Component {
   }
 
   onServiceNameChange(event) {
+    this.validateInput(event.target, 'serviceName');
     this.setState({ service: { ...this.state.service, name: event.target.value } });
   }
 
   onWholeServiceChange(event) {
     this.setState({
       service: ServiceTemplatesProvider.getServiceTemplateByName(event.target.value),
-    });
+      form: {
+        ...this.state.form,
+        serviceNameValid: event.target.value !== 'Custom',
+        passwordValueValid: false,
+      },
+    }, this.validateForm);
+  }
+
+  validateInput(inputTarget, fieldName) {
+    if (inputTarget.name === formInputNames[fieldName] && inputTarget.value.length) {
+      this.setState({
+        form: { ...this.state.form, [`${fieldName}Valid`]: true },
+      }, this.validateForm);
+    } else if (inputTarget.name === formInputNames[fieldName]) {
+      this.setState({
+        form: { ...this.state.form, [`${fieldName}Valid`]: false },
+      }, this.validateForm);
+    }
+  }
+
+  validateForm() {
+    const fieldsToValidate = [
+      this.state.form.serviceNameValid,
+      this.state.form.passwordValueValid,
+    ];
+
+    const valid = fieldsToValidate.every(fieldValue => fieldValue);
+
+    this.setState({ form: { ...this.state.form, validForm: valid } });
   }
 
   resetForm() {
@@ -70,7 +113,11 @@ class AddServiceForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     this.resetForm();
-    this.props.onFormSubmit(this.state);
+
+    this.props.onFormSubmit({
+      service: this.state.service,
+      passwordType: this.state.passwordType,
+    });
   }
 
   render() {
@@ -94,11 +141,12 @@ class AddServiceForm extends React.Component {
           <label className="add-service-form__label-container">
             <span className="add-service-form__label">{staticTexts.get('label.choose.service_name')}</span>
             <input
+              name="service-name"
               className="add-service-form__text-input"
               type="text"
               value={this.state.service.name}
               placeholder={staticTexts.get('placeholder.service_name')}
-              onChange={this.onServiceNameChange}
+              onInput={this.onServiceNameChange}
             />
           </label>
           <label className="add-service-form__label-container">
@@ -114,14 +162,21 @@ class AddServiceForm extends React.Component {
               ))}
             </select>
             <input
+              name="password-value"
               className="add-service-form__text-input"
               type="text"
               value={this.state.service.passwordValue}
               placeholder={`${staticTexts.get('placeholder.password')} ${this.state.passwordType.label.toLowerCase()}`}
-              onChange={this.onPasswordValueChange}
+              onInput={this.onPasswordValueChange}
             />
           </label>
-          <button className="add-service-form__submit-btn" type="submit">{staticTexts.get('button.submit_label')}</button>
+          <button
+            disabled={!this.state.form.validForm}
+            className="add-service-form__submit-btn"
+            type="submit"
+          >
+            {staticTexts.get('button.submit_label')}
+          </button>
         </fieldset>
         <fieldset className="icon-preview-section">
           <div className="icon-preview-frame">
