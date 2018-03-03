@@ -25,8 +25,9 @@ export default () => {
   };
 
   const appAuthorCredentials = 'Application made with ❤ by Marcin Kołodziejczak';
-
+  const hideFooterForAWhile = false;
   return (
+    hideFooterForAWhile &&
     <footer>
       <div>
         {appAuthorCredentials}

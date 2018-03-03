@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import AddServiceForm from './add-service-form/AddServiceForm';
+import Service from './service/Service';
 
 const staticTexts = new Map([
   ['page.create_new.header', 'Create new password file'],
@@ -14,15 +15,19 @@ class CreateNewPage extends React.Component {
   constructor() {
     super();
     this.goToDashboard = this.goToDashboard.bind(this);
+    this.appendService = this.appendService.bind(this);
+
+    this.state = {
+      services: [],
+    };
   }
 
   goToDashboard() {
     this.props.history.push('/');
   }
 
-  addService(stateFromChild) {
-    console.log('stateFromChild: ', stateFromChild);
-    console.log('Add service function', this);
+  appendService(serviceWithPasswordType) {
+    this.setState({ services: [...this.state.services, serviceWithPasswordType] });
   }
 
   render() {
@@ -32,9 +37,20 @@ class CreateNewPage extends React.Component {
           <button onClick={this.goToDashboard}>{staticTexts.get('page.go_back')}</button>
           <h1 className="create-new-page-heading-text">{staticTexts.get('page.create_new.header')}</h1>
         </header>
-        <AddServiceForm onFormSubmit={this.addService} />
+        <AddServiceForm onFormSubmit={this.appendService} />
         <hr />
-        <section className="services"> HERE WILL BE SERVICE LIST</section>
+        <section>
+          {this.state.services.map(element => (
+            <Service
+              key={element.service.id}
+              icon={element.service.icon}
+              name={element.service.name}
+              templateName={element.service.templateName}
+              passwordValue={element.service.passwordValue}
+              passwordTypeValue={element.passwordType.value}
+            />
+          ))}
+        </section>
       </section>
     );
   }

@@ -1,0 +1,7 @@
+.service {
+    display: grid;
+    grid-template-rows: repeat(2, auto);
+    width: 200px;
+    border: 1px solid #000;
+    border-radius: 5px;
+}

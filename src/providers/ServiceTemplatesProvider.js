@@ -1,3 +1,5 @@
+import UniqueIdentifierProvider from './UniqueIdentifierProvider';
+
 import CustomIcon from '../icons/services/custom.svg';
 import DropboxIcon from '../icons/services/dropbox.svg';
 import FacebookIcon from '../icons/services/facebook.svg';
@@ -46,10 +48,16 @@ const supportingServices = [
   { name: 'Youtube', src: YoutubeIcon },
 ];
 
+const servicePrefix = 'service';
+
 export default class ServiceTemplatesProvider {
   static createServiceTemplate(templateName, name = templateName, icon = '', passwordValue = '') {
     return {
-      templateName, name, icon, passwordValue,
+      id: UniqueIdentifierProvider.getPrefixedUUID(servicePrefix),
+      templateName,
+      name,
+      icon,
+      passwordValue,
     };
   }
 
