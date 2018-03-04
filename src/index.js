@@ -6,8 +6,10 @@ import './index.css';
 import App from './components/App';
 import registerServiceWorker from './registerServiceWorker';
 import configureStore from './store/configureStore';
+import { loadMyIp } from './actions/dashboardActions';
 
 const store = configureStore();
+store.dispatch(loadMyIp());
 
 render(
   <Provider store={store}>

@@ -1,1 +1,2 @@
 export const CREATE_TEXT = 'CREATE_TEXT';
+export const LOAD_MY_IP_SUCCESS = 'LOAD_MY_IP_SUCCESS';

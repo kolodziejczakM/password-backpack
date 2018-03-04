@@ -114,7 +114,7 @@ class DashboardPage extends React.Component {
         <hr />
         BELOW - in redux state:
         <hr />
-        {this.props.dashboard.map((text, index) => <p key={index}>{text}</p>)}
+        {this.props.dashboard.map((text, index) => <p key={index}>{text.ip}</p>)}
       </section>
     );
   }
@@ -124,7 +124,7 @@ DashboardPage.propTypes = {
   history: PropTypes.shape({ push: PropTypes.func }).isRequired,
   isOnline: PropTypes.bool.isRequired,
   actions: PropTypes.shape({ createText: PropTypes.func }).isRequired,
-  dashboard: PropTypes.arrayOf(PropTypes.string).isRequired,
+  dashboard: PropTypes.arrayOf(PropTypes.shape({ ip: PropTypes.string })).isRequired,
 };
 
 // second param is ownProps
