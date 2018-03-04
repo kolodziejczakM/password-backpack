@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'ramda';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import './DashboardPage.css';
 import Tile from '../common/tile/Tile';
 import NetworkStatusBar from '../common/network-status-bar/NetworkStatusBar';
@@ -88,7 +89,7 @@ class DashboardPage extends React.Component {
 
   createText() {
     const text = 'TESTING REDUX';
-    this.props.createText(text);
+    this.props.actions.createText(text);
   }
 
   render() {
@@ -113,7 +114,7 @@ class DashboardPage extends React.Component {
         <hr />
         BELOW - in redux state:
         <hr />
-        {this.props.dashboard.map(text => <p key={Date.now()}>{text}</p>)}
+        {this.props.dashboard.map((text, index) => <p key={index}>{text}</p>)}
       </section>
     );
   }
@@ -122,7 +123,7 @@ class DashboardPage extends React.Component {
 DashboardPage.propTypes = {
   history: PropTypes.shape({ push: PropTypes.func }).isRequired,
   isOnline: PropTypes.bool.isRequired,
-  createText: PropTypes.func.isRequired,
+  actions: PropTypes.shape({ createText: PropTypes.func }).isRequired,
   dashboard: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
@@ -135,7 +136,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    createText: text => dispatch(dashboardActions.createText(text)),
+    actions: bindActionCreators(dashboardActions, dispatch),
   };
 }
 
