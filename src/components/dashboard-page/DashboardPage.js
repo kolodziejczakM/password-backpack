@@ -88,7 +88,7 @@ class DashboardPage extends React.Component {
 
   createText() {
     const text = 'TESTING REDUX';
-    this.props.dispatch(dashboardActions.createText(text));
+    this.props.createText(text);
   }
 
   render() {
@@ -122,7 +122,7 @@ class DashboardPage extends React.Component {
 DashboardPage.propTypes = {
   history: PropTypes.shape({ push: PropTypes.func }).isRequired,
   isOnline: PropTypes.bool.isRequired,
-  dispatch: PropTypes.func.isRequired,
+  createText: PropTypes.func.isRequired,
   dashboard: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
@@ -133,5 +133,13 @@ function mapStateToProps(state) {
   };
 }
 
-// since mapDispatchToProps is not defined I've dispatch function inside props: this.props.dispatch
-export default connect(mapStateToProps)(compose(withRouter, withNetworkStatus)(DashboardPage));
+function mapDispatchToProps(dispatch) {
+  return {
+    createText: text => dispatch(dashboardActions.createText(text)),
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(compose(withRouter, withNetworkStatus)(DashboardPage));
