@@ -3,12 +3,15 @@ import swal from 'sweetalert';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'ramda';
+import { connect } from 'react-redux';
 import './DashboardPage.css';
 import Tile from '../common/tile/Tile';
 import NetworkStatusBar from '../common/network-status-bar/NetworkStatusBar';
 import withNetworkStatus from '../common/HOCs/withNetworkStatus';
 import Plus from '../../icons/plus.svg';
 import Key from '../../icons/key.svg';
+
+import * as dashboardActions from '../../actions/dashboardActions';
 
 
 const electron = window.require('electron');
@@ -35,6 +38,7 @@ class DashboardPage extends React.Component {
     this.navigateToCreatorIfOffline = this.navigateToCreatorIfOffline.bind(this);
     this.showOpenFileDialogIfOffline = this.showOpenFileDialogIfOffline.bind(this);
     this.parseJsonFile = this.parseJsonFile.bind(this);
+    this.createText = this.createText.bind(this);
 
     this.offlineAlertOptions = { buttons: { cancel: true, confirm: true }, dangerMode: true };
   }
@@ -82,6 +86,11 @@ class DashboardPage extends React.Component {
     });
   }
 
+  createText() {
+    const text = 'TESTING REDUX';
+    this.props.dispatch(dashboardActions.createText(text));
+  }
+
   render() {
     return (
       <section className="dashboard-page">
@@ -100,6 +109,11 @@ class DashboardPage extends React.Component {
         />
 
         <NetworkStatusBar />
+        <button onClick={this.createText}>TEST REDUX - ADD TEXT OBJECT</button>
+        <hr />
+        BELOW - in redux state:
+        <hr />
+        {this.props.dashboard.map(text => <p key={Date.now()}>{text}</p>)}
       </section>
     );
   }
@@ -108,6 +122,16 @@ class DashboardPage extends React.Component {
 DashboardPage.propTypes = {
   history: PropTypes.shape({ push: PropTypes.func }).isRequired,
   isOnline: PropTypes.bool.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  dashboard: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-export default compose(withRouter, withNetworkStatus)(DashboardPage);
+// second param is ownProps
+function mapStateToProps(state) {
+  return {
+    dashboard: state.dashboard,
+  };
+}
+
+// since mapDispatchToProps is not defined I've dispatch function inside props: this.props.dispatch
+export default connect(mapStateToProps)(compose(withRouter, withNetworkStatus)(DashboardPage));
