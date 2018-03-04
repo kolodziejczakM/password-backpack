@@ -1,6 +1,7 @@
 import * as types from '../actions/actionTypes';
+import initialState from './initialState';
 
-export default function dashboardReducer(state = [], action) {
+export default function dashboardReducer(state = initialState.dashboard, action) {
   switch (action.type) {
     case types.CREATE_TEXT:
       return [...state, action.text];
