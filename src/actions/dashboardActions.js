@@ -1,3 +1,5 @@
+import * as types from './actionTypes';
+
 export function createText(text) {
-  return { type: 'CREATE_TEXT', text };
+  return { type: types.CREATE_TEXT, text };
 }
