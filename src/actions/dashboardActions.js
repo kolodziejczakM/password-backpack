@@ -1,6 +1,6 @@
 import * as types from './actionTypes';
 import { getMyIp } from '../api/dashboardApi';
-import { beginAjaxCall } from './ajaxStatusActions';
+import { beginAjaxCall, ajaxCallError } from './ajaxStatusActions';
 
 export function createText(text) {
   return { type: types.CREATE_TEXT, text };
@@ -16,6 +16,9 @@ export function loadMyIp() {
     return getMyIp()
       .then(res => res.json())
       .then(data => dispatch(loadMyIpSuccess(data)))
-      .catch(err => console.log(err));
+      .catch((err) => {
+        dispatch(ajaxCallError());
+        throw err;
+      });
   };
 }

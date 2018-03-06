@@ -9,7 +9,9 @@ import configureStore from './store/configureStore';
 import { loadMyIp } from './actions/dashboardActions';
 
 const store = configureStore();
-store.dispatch(loadMyIp());
+store.dispatch(loadMyIp()).catch(() => {
+  alert('FAIL DURING LOAD :p');
+});
 
 render(
   <Provider store={store}>
