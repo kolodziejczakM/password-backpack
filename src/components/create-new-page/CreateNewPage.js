@@ -49,18 +49,16 @@ class CreateNewPage extends React.Component {
         <hr />
         <section className="service-list">
           {this.state.services.map(element => (
-            <div className="service-wrapper">
-              <Service
-                key={element.service.id}
-                id={element.service.id}
-                icon={element.service.icon}
-                name={element.service.name}
-                templateName={element.service.templateName}
-                passwordValue={element.service.passwordValue}
-                passwordTypeValue={element.passwordType.value}
-                onDeleteClick={this.dropService}
-              />
-            </div>
+            <Service
+              key={element.service.id}
+              id={element.service.id}
+              icon={element.service.icon}
+              name={element.service.name}
+              templateName={element.service.templateName}
+              passwordValue={element.service.passwordValue}
+              passwordTypeValue={element.passwordType.value}
+              onDeleteClick={this.dropService}
+            />
           ))}
         </section>
       </section>
