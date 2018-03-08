@@ -34,7 +34,7 @@ class CreateNewPage extends React.Component {
 
   dropService(serviceId) {
     this.setState({
-      services: this.state.services.filter(service => service.id === serviceId),
+      services: this.state.services.filter(element => element.service.id !== serviceId),
     });
   }
 
