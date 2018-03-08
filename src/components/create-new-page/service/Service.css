@@ -1,7 +1,46 @@
 .service {
-    display: grid;
-    grid-template-rows: repeat(2, auto);
-    width: 200px;
-    border: 1px solid #000;
-    border-radius: 5px;
+  padding: 10px;
+  display: grid;
+  grid-template-rows: repeat(2, auto);
+  width: 200px;
+  border: 1px solid #000;
+  border-radius: 5px;
+}
+
+.service__top-section {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-bottom: 15px;
+}
+
+.service__icon {
+  text-align: center;
+  grid-column: 2/3;
+}
+
+.service__remove-btn-wrapper {
+  justify-self: end;
+}
+
+.service__remove-btn {
+  grid-column: 3/4;
+  cursor: pointer;
+  background: transparent;
+  outline: none;
+  border: none;
+  padding: 0;
+}
+
+.service__remove-btn:hover {
+  opacity: 0.9;
+}
+
+.service__data-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.service_label {
+  margin-right: 5px;
 }

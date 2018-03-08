@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import AddServiceForm from './add-service-form/AddServiceForm';
+import './CreateNewPage.css';
 import Service from './service/Service';
 
 const staticTexts = new Map([
@@ -46,18 +47,20 @@ class CreateNewPage extends React.Component {
         </header>
         <AddServiceForm onFormSubmit={this.appendService} />
         <hr />
-        <section>
+        <section className="service-list">
           {this.state.services.map(element => (
-            <Service
-              key={element.service.id}
-              id={element.service.id}
-              icon={element.service.icon}
-              name={element.service.name}
-              templateName={element.service.templateName}
-              passwordValue={element.service.passwordValue}
-              passwordTypeValue={element.passwordType.value}
-              onDeleteClick={this.dropService}
-            />
+            <div className="service-wrapper">
+              <Service
+                key={element.service.id}
+                id={element.service.id}
+                icon={element.service.icon}
+                name={element.service.name}
+                templateName={element.service.templateName}
+                passwordValue={element.service.passwordValue}
+                passwordTypeValue={element.passwordType.value}
+                onDeleteClick={this.dropService}
+              />
+            </div>
           ))}
         </section>
       </section>

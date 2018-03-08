@@ -14,6 +14,7 @@ const staticTexts = new Map([
 ]);
 
 const iconDimension = 40;
+const removeIconDimension = 20;
 
 const Service = ({
   id,
@@ -25,7 +26,7 @@ const Service = ({
   onDeleteClick,
 }) => {
   const isUserSureDialog = () => swal(
-    staticTexts.get('alert.text.user_sure'),
+    `${staticTexts.get('alert.text.user_sure')} ${name}`,
     { buttons: { cancel: true, confirm: true }, dangerMode: true },
   );
 
@@ -37,8 +38,8 @@ const Service = ({
 
   return (
     <section className="service">
-      <section>
-        <figure>
+      <section className="service__top-section">
+        <figure className="service__icon">
           <img
             src={icon}
             width={iconDimension}
@@ -47,21 +48,32 @@ const Service = ({
           />
           <figcaption>{templateName}</figcaption>
         </figure>
-        <button onClick={deleteService}>
-          <img
-            src={RemoveIcon}
-            alt={staticTexts.get('alt.remove_btn')}
-            width={iconDimension}
-            height={iconDimension}
-          />
-        </button>
+        <div className="service__remove-btn-wrapper">
+          <button onClick={deleteService} className="service__remove-btn">
+            <img
+              src={RemoveIcon}
+              alt={staticTexts.get('alt.remove_btn')}
+              width={removeIconDimension}
+              height={removeIconDimension}
+            />
+          </button>
+        </div>
       </section>
       <section>
-        <dl>
-          <dt>{staticTexts.get('label.name')}</dt><dd>{name}</dd>
-          <dt>{staticTexts.get('label.password_value')}</dt><dd>{passwordValue}</dd>
-          <dt>{staticTexts.get('label.password_type_value')}</dt><dd>{passwordTypeValue}</dd>
-        </dl>
+        <ul className="service__data-list">
+          <li>
+            <span className="service_label">{staticTexts.get('label.name')}</span>
+            <span>{name}</span>
+          </li>
+          <li>
+            <span className="service_label">{staticTexts.get('label.password_value')}</span>
+            <span>{passwordValue}</span>
+          </li>
+          <li>
+            <span className="service_label">{staticTexts.get('label.password_type_value')}</span>
+            <span>{passwordTypeValue}</span>
+          </li>
+        </ul>
       </section>
     </section>
   );
