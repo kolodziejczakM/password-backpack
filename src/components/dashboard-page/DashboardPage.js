@@ -41,7 +41,7 @@ class DashboardPage extends React.Component {
 
   getUserOnlineAgreement() {
     if (this.props.isOnline) {
-      return swal(staticTexts.get('alert.text.user_online'), this.offlineAlertOptions).then(userAgrees => userAgrees);
+      return swal(staticTexts.get('alert.text.user_online'), this.offlineAlertOptions);
     }
 
     return Promise.resolve(true);

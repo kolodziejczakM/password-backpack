@@ -16,6 +16,7 @@ class CreateNewPage extends React.Component {
     super();
     this.goToDashboard = this.goToDashboard.bind(this);
     this.appendService = this.appendService.bind(this);
+    this.dropService = this.dropService.bind(this);
 
     this.state = {
       services: [],
@@ -28,6 +29,12 @@ class CreateNewPage extends React.Component {
 
   appendService(serviceWithPasswordType) {
     this.setState({ services: [...this.state.services, serviceWithPasswordType] });
+  }
+
+  dropService(serviceId) {
+    this.setState({
+      services: this.state.services.filter(service => service.id === serviceId),
+    });
   }
 
   render() {
@@ -43,11 +50,13 @@ class CreateNewPage extends React.Component {
           {this.state.services.map(element => (
             <Service
               key={element.service.id}
+              id={element.service.id}
               icon={element.service.icon}
               name={element.service.name}
               templateName={element.service.templateName}
               passwordValue={element.service.passwordValue}
               passwordTypeValue={element.passwordType.value}
+              onDeleteClick={this.dropService}
             />
           ))}
         </section>
