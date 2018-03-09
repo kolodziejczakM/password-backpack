@@ -1,15 +1,12 @@
-import UniqueIdentifierProvider from './UniqueIdentifierProvider';
 import ServicesFactory from './ServicesFactory';
 import CustomIcon from '../icons/services/custom.svg';
 
-const servicePrefix = 'service';
 const servicesFactory = ServicesFactory();
 const customService = servicesFactory.createService('Custom', CustomIcon);
 
 export default class ServiceTemplatesProvider {
   static createServiceTemplate(templateName, name = templateName, icon = '', passwordValue = '') {
     return {
-      id: UniqueIdentifierProvider.getPrefixedUUID(servicePrefix),
       templateName,
       name,
       icon,

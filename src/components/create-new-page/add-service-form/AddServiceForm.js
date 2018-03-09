@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { head } from 'ramda';
 import './AddServiceForm.css';
+import UniqueIdentifierProvider from '../../../providers/UniqueIdentifierProvider';
 import ServiceTemplatesProvider from '../../../providers/ServiceTemplatesProvider';
 
 const PASSWORD_ID = 'PASSWORD';
@@ -115,7 +116,7 @@ class AddServiceForm extends React.Component {
     this.resetForm();
 
     this.props.onFormSubmit({
-      service: this.state.service,
+      service: { ...this.state.service, id: UniqueIdentifierProvider.getPrefixedUUID('service') },
       passwordType: this.state.passwordType,
     });
   }
