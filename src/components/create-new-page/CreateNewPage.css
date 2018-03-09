@@ -1,3 +1,7 @@
+.create-new-page {
+  padding-bottom: 20px;
+}
+
 .create-new-page-heading-text {
   display: inline-block;
   margin: 15px;
@@ -8,4 +12,14 @@
   display: grid;
   grid-gap: 10px;
   grid-template-columns: repeat(4, 1fr);
+}
+
+.no-services-container {
+  opacity: 0.5;
+  text-align: center;
+  padding: 20px;
+}
+
+.no-services-icon {
+  margin-bottom: 15px;
 }
