@@ -8,7 +8,12 @@ import './CreateNewPage.css';
 import Service from './service/Service';
 import PasswordValuesCipheringProvider from '../../providers/PasswordValuesCipheringProvider';
 
+const electron = window.require('electron');
+const fs = electron.remote.require('fs');
+const { dialog } = electron.remote;
+
 const staticTexts = new Map([
+  ['common.error', 'Something bad happened, try again.'],
   ['page.create_new.header', 'Create new password file'],
   ['page.go_back', 'Go back'],
   ['alt.service_new', 'Click to add new service'],
@@ -20,9 +25,33 @@ const staticTexts = new Map([
     'Type the password that will be used to protect your password file. Do not tell it anyone and keep it in a save place.'],
   ['placeholder.password_file', 'e.g. jakMamaWypijeKawe12'],
   ['alert.lack_of_password_for_file', 'You have to provide password that will protect your password file to continue.'],
+  ['file_storage.location', 'Your file has been stored in:'],
 ]);
 
 const noContentIconDimension = 80;
+
+function writeJsonFile(cipheredServices, targetPathName) {
+  if (!targetPathName) {
+    return;
+  }
+
+  const [targetFolderPath] = targetPathName;
+  const outputFilePath = `${targetFolderPath}/${Date.now()}.json`;
+
+  fs.writeFile(outputFilePath, JSON.stringify(cipheredServices), (err) => {
+    if (err) {
+      swal(
+        staticTexts.get('common.error'),
+        { icon: 'error' },
+      );
+    } else {
+      swal(
+        `${staticTexts.get('file_storage.location')} ${outputFilePath}`,
+        { icon: 'success' },
+      );
+    }
+  });
+}
 
 class CreateNewPage extends React.Component {
   constructor() {
@@ -67,25 +96,27 @@ class CreateNewPage extends React.Component {
     });
 
     if (passwordFileSalt === null || !passwordFileSalt.length) {
-      const userWantsContinue = await swal(
+      const userWantsToContinue = await swal(
         staticTexts.get('alert.lack_of_password_for_file'),
         { buttons: { cancel: true, confirm: true }, dangerMode: true },
       );
 
-      if (userWantsContinue) {
+      if (userWantsToContinue) {
         this.makePasswordFile();
       }
 
       return;
     }
 
-    const c = PasswordValuesCipheringProvider.encryptServicesPasswords(
+    const encryptedServices = PasswordValuesCipheringProvider.encryptServicesPasswords(
       this.state.services,
       passwordFileSalt,
     );
 
-    console.log('AFTER CIPHER: ', c);
-    console.log('AFTER DECIPHER: ', PasswordValuesCipheringProvider.decryptServicesPasswords(c, passwordFileSalt));
+    dialog.showOpenDialog(
+      { properties: ['openDirectory'] },
+      writeJsonFile.bind(null, encryptedServices),
+    );
   }
 
   render() {

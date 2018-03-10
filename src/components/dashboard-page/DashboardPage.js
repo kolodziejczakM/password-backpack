@@ -74,7 +74,7 @@ class DashboardPage extends React.Component {
 
     fs.readFile(filePath, { encoding: 'utf-8' }, (err, fileContent) => {
       if (!err && !isFileEmpty(fileContent)) {
-        console.log('ParseJsonFile: ', this);
+        console.log('ParseJsonFile: ', this, JSON.parse(fileContent));
         // const data = JSON.parse(fileContent);
       } else {
         swal(staticTexts.get('alert.text.empty_file'));
