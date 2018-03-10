@@ -128,6 +128,15 @@ class CreateNewPage extends React.Component {
         </header>
         <AddServiceForm onFormSubmit={this.appendService} />
 
+        <section className="create-new-page__make-file-section">
+          <button
+            className="create-new-page__make-password-file-btn"
+            onClick={this.makePasswordFile}
+            disabled={this.isServiceListEmpty()}
+          >
+            {staticTexts.get('btn.label.create_ps_file')}
+          </button>
+        </section>
         <hr />
         {
           this.isServiceListEmpty() &&
@@ -158,14 +167,6 @@ class CreateNewPage extends React.Component {
               />
           ))}
         </section>
-        <hr />
-
-        <button
-          onClick={this.makePasswordFile}
-          disabled={this.isServiceListEmpty()}
-        >
-          {staticTexts.get('btn.label.create_ps_file')}
-        </button>
       </section>
     );
   }

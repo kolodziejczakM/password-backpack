@@ -2,6 +2,15 @@
   padding-bottom: 20px;
 }
 
+.create-new-page__make-file-section {
+  display: grid;
+  padding: 0 20px;
+}
+
+.create-new-page__make-password-file-btn {
+  justify-self: end;
+}
+
 .create-new-page-heading-text {
   display: inline-block;
   margin: 15px;
