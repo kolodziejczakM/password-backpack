@@ -79,7 +79,13 @@ class CreateNewPage extends React.Component {
       return;
     }
 
-    console.log('AFTER HASH: ', PasswordValuesCipheringProvider.encryptServicesPasswords(this.state.services, passwordFileSalt));
+    const c = PasswordValuesCipheringProvider.encryptServicesPasswords(
+      this.state.services,
+      passwordFileSalt,
+    );
+
+    console.log('AFTER CIPHER: ', c);
+    console.log('AFTER DECIPHER: ', PasswordValuesCipheringProvider.decryptServicesPasswords(c, passwordFileSalt));
   }
 
   render() {

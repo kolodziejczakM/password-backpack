@@ -1,4 +1,4 @@
-import { createCipher } from 'crypto';
+import { createCipher, createDecipher } from 'crypto';
 
 const algorithm = 'aes-256-ctr';
 const encodingFormat = {
@@ -8,18 +8,20 @@ const encodingFormat = {
 
 function encryptServicePassword(password, salt) {
   const cipher = createCipher(algorithm, salt);
-  let crypted = cipher.update(password, encodingFormat.source, encodingFormat.target);
 
-  crypted += cipher.final(encodingFormat.target);
-  return crypted;
+  return [
+    cipher.update(password, encodingFormat.source, encodingFormat.target),
+    cipher.final(encodingFormat.target),
+  ].join('');
 }
 
 function decryptServicePassword(password, salt) {
-  const decipher = crypto.createDecipher(algorithm, salt);
-  let dec = decipher.update(password, encodingFormat.target, encodingFormat.source);
+  const decipher = createDecipher(algorithm, salt);
 
-  dec += decipher.final(encodingFormat.source);
-  return dec;
+  return [
+    decipher.update(password, encodingFormat.target, encodingFormat.source),
+    decipher.final(encodingFormat.source),
+  ].join('');
 }
 
 export default class PasswordValuesCipheringProvider {
@@ -27,7 +29,10 @@ export default class PasswordValuesCipheringProvider {
     return services.map(service => (
       {
         ...service,
-        passwordValue: encryptServicePassword(service.serviceCore.passwordValue, salt),
+        serviceCore: {
+          ...service.serviceCore,
+          passwordValue: encryptServicePassword(service.serviceCore.passwordValue, salt),
+        },
       }
     ));
   }
@@ -36,7 +41,10 @@ export default class PasswordValuesCipheringProvider {
     return services.map(service => (
       {
         ...service,
-        passwordValue: decryptServicePassword(service.serviceCore.passwordValue, salt),
+        serviceCore: {
+          ...service.serviceCore,
+          passwordValue: decryptServicePassword(service.serviceCore.passwordValue, salt),
+        },
       }
     ));
   }
