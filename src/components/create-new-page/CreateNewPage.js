@@ -1,10 +1,12 @@
 import React from 'react';
+import swal from 'sweetalert';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import AddServiceForm from './add-service-form/AddServiceForm';
 import ListIcon from '../../icons/list.svg';
 import './CreateNewPage.css';
 import Service from './service/Service';
+import PasswordValuesCipheringProvider from '../../providers/PasswordValuesCipheringProvider';
 
 const staticTexts = new Map([
   ['page.create_new.header', 'Create new password file'],
@@ -14,6 +16,10 @@ const staticTexts = new Map([
   ['no_content', 'Append service to see it on the list'],
   ['no_content.icon.alt', 'No content icon. You must service to see it here.'],
   ['btn.label.create_ps_file', 'Create password file'],
+  ['salt.creation_text',
+    'Type the password that will be used to protect your password file. Do not tell it anyone and keep it in a save place.'],
+  ['placeholder.password_file', 'e.g. jakMamaWypijeKawe12'],
+  ['alert.lack_of_password_for_file', 'You have to provide password that will protect your password file to continue.'],
 ]);
 
 const noContentIconDimension = 80;
@@ -35,13 +41,13 @@ class CreateNewPage extends React.Component {
     this.props.history.push('/');
   }
 
-  appendService(serviceWithPasswordType) {
-    this.setState({ services: [...this.state.services, serviceWithPasswordType] });
+  appendService(service) {
+    this.setState({ services: [...this.state.services, service] });
   }
 
   dropService(serviceId) {
     this.setState({
-      services: this.state.services.filter(element => element.service.id !== serviceId),
+      services: this.state.services.filter(service => service.serviceCore.id !== serviceId),
     });
   }
 
@@ -49,8 +55,31 @@ class CreateNewPage extends React.Component {
     return !this.state.services.length;
   }
 
-  makePasswordFile() {
-    console.log('Creating password file: ', JSON.stringify(this.state.services));
+  async makePasswordFile() {
+    const passwordFileSalt = await swal(staticTexts.get('salt.creation_text'), {
+      content: {
+        element: 'input',
+        attributes: {
+          placeholder: staticTexts.get('placeholder.password_file'),
+          type: 'password',
+        },
+      },
+    });
+
+    if (passwordFileSalt === null || !passwordFileSalt.length) {
+      const userWantsContinue = await swal(
+        staticTexts.get('alert.lack_of_password_for_file'),
+        { buttons: { cancel: true, confirm: true }, dangerMode: true },
+      );
+
+      if (userWantsContinue) {
+        this.makePasswordFile();
+      }
+
+      return;
+    }
+
+    console.log('AFTER HASH: ', PasswordValuesCipheringProvider.encryptServicesPasswords(this.state.services, passwordFileSalt));
   }
 
   render() {
@@ -79,15 +108,15 @@ class CreateNewPage extends React.Component {
 
         <section className="service-list">
           {
-            this.state.services.map(element => (
+            this.state.services.map(service => (
               <Service
-                key={element.service.id}
-                id={element.service.id}
-                icon={element.service.icon}
-                name={element.service.name}
-                templateName={element.service.templateName}
-                passwordValue={element.service.passwordValue}
-                passwordTypeValue={element.passwordType.value}
+                key={service.serviceCore.id}
+                id={service.serviceCore.id}
+                icon={service.serviceCore.icon}
+                name={service.serviceCore.name}
+                templateName={service.serviceCore.templateName}
+                passwordValue={service.serviceCore.passwordValue}
+                passwordTypeValue={service.passwordType.value}
                 onDeleteClick={this.dropService}
               />
           ))}

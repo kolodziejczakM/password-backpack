@@ -3,7 +3,7 @@ export { default as FacebookIcon } from './facebook.svg';
 export { default as GmailIcon } from './gmail.svg';
 export { default as GooglePlusIcon } from './googleplus.svg';
 export { default as InstagramIcon } from './instagram.svg';
-export { default as LinkedinIcon } from './linkedin.svg';
+export { default as LinkedInIcon } from './linkedin.svg';
 export { default as MediumIcon } from './medium.svg';
 export { default as MegaIcon } from './mega.svg';
 export { default as NetflixIcon } from './netflix.svg';

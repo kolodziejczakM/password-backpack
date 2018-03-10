@@ -4,21 +4,21 @@ import CustomIcon from '../icons/services/custom.svg';
 const servicesFactory = ServicesFactory();
 const customService = servicesFactory.createService('Custom', CustomIcon);
 
-export default class ServiceTemplatesProvider {
-  static createServiceTemplate(templateName, name = templateName, icon = '', passwordValue = '') {
-    return {
-      templateName,
-      name,
-      icon,
-      passwordValue,
-    };
-  }
+function createServiceTemplate(templateName, name = templateName, icon = '', passwordValue = '') {
+  return {
+    templateName,
+    name,
+    icon,
+    passwordValue,
+  };
+}
 
+export default class ServiceTemplatesProvider {
   static getServiceTemplates() {
     return [
-      this.createServiceTemplate(customService.name, '', customService.src),
+      createServiceTemplate(customService.name, '', customService.src),
       ...servicesFactory.getSupportedServices()
-        .map(ss => this.createServiceTemplate(ss.name, undefined, ss.src)),
+        .map(ss => createServiceTemplate(ss.name, undefined, ss.src)),
     ];
   }
 

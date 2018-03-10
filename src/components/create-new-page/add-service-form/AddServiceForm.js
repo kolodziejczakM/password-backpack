@@ -116,7 +116,7 @@ class AddServiceForm extends React.Component {
     this.resetForm();
 
     this.props.onFormSubmit({
-      service: { ...this.state.service, id: UniqueIdentifierProvider.getPrefixedUUID('service') },
+      serviceCore: { ...this.state.service, id: UniqueIdentifierProvider.getPrefixedUUID('service') },
       passwordType: this.state.passwordType,
     });
   }
