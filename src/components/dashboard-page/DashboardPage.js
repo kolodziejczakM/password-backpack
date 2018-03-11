@@ -10,7 +10,6 @@ import withNetworkStatus from '../common/HOCs/withNetworkStatus';
 import Plus from '../../icons/plus.svg';
 import Key from '../../icons/key.svg';
 
-
 const electron = window.require('electron');
 const fs = electron.remote.require('fs');
 const { dialog } = electron.remote;

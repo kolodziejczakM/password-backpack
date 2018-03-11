@@ -1,7 +1,8 @@
 .application-header {
   text-align: center;
-  border-bottom: 1px solid #000;
   padding: 20px 20px 10px;
+  background: #699252;
+  box-shadow: 0 2px 5px #699252;
 }
 
 .application-heading-text {
