@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { compose } from 'ramda';
 import './DashboardPage.css';
 import Tile from '../common/tile/Tile';
+import Service from '../create-new-page/service/Service';
 import NetworkStatusBar from '../common/network-status-bar/NetworkStatusBar';
 import withNetworkStatus from '../common/HOCs/withNetworkStatus';
 import CipheringProvider from '../../providers/CipheringProvider';
@@ -40,6 +41,9 @@ class DashboardPage extends React.Component {
     this.parseJsonFile = this.parseJsonFile.bind(this);
 
     this.offlineAlertOptions = { buttons: { cancel: true, confirm: true }, dangerMode: true };
+    this.state = {
+      services: [],
+    };
   }
 
   getUserOnlineAgreement() {
@@ -93,9 +97,7 @@ class DashboardPage extends React.Component {
           passwordFileSalt,
         );
 
-        console.log('encrypted: ', encryptedFileContent);
-        console.log('decrypted: ', decryptedFileContent);
-        console.log('this: ', this);
+        this.setState({ services: decryptedFileContent });
       } else {
         swal(staticTexts.get('alert.text.empty_file'));
       }
@@ -120,6 +122,22 @@ class DashboardPage extends React.Component {
         />
 
         <NetworkStatusBar />
+
+        <section className="service-list">
+          {
+            this.state.services.map(service => (
+              <Service
+                key={service.serviceCore.id}
+                id={service.serviceCore.id}
+                icon={service.serviceCore.icon}
+                name={service.serviceCore.name}
+                templateName={service.serviceCore.templateName}
+                passwordValue={service.serviceCore.passwordValue}
+                passwordTypeValue={service.passwordType.value}
+                onDeleteClick={this.dropService}
+              />
+            ))}
+        </section>
       </section>
     );
   }
