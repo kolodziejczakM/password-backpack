@@ -4,6 +4,8 @@ import { head } from 'ramda';
 import './AddServiceForm.css';
 import UniqueIdentifierProvider from '../../../providers/UniqueIdentifierProvider';
 import ServiceTemplatesProvider from '../../../providers/ServiceTemplatesProvider';
+import withPopover from '../../common/HOCs/withPopover';
+import PreviewIcon from '../preview-icon/PreviewIcon';
 
 const PASSWORD_ID = 'PASSWORD';
 const LOGIN_ID = 'LOGIN';
@@ -18,7 +20,14 @@ const staticTexts = new Map([
   ['label.choose.service_name', 'Name current service:'],
   ['button.submit_label', 'Append service'],
   ['alt.service_icon_preview', 'Service icon preview'],
+  ['preview.icon.popover', 'This is service template icon. You can change it only by changing service template.'],
 ]);
+
+const PreviewIconWithPopover = withPopover({
+  text: staticTexts.get('preview.icon.popover'),
+  removeChildrenMargins: true,
+})(PreviewIcon);
+
 
 const passwordTypes = [
   { label: staticTexts.get('select.password'), value: PASSWORD_ID },
@@ -180,14 +189,12 @@ class AddServiceForm extends React.Component {
           </button>
         </fieldset>
         <fieldset className="icon-preview-section">
-          <div className="icon-preview-frame">
-            <img
-              src={this.state.service.icon}
-              alt={staticTexts.get('alt.service_icon_preview')}
-              width={PREVIEW_DIMENSION}
-              height={PREVIEW_DIMENSION}
-            />
-          </div>
+          <PreviewIconWithPopover
+            src={this.state.service.icon}
+            alt={staticTexts.get('alt.service_icon_preview')}
+            width={PREVIEW_DIMENSION}
+            height={PREVIEW_DIMENSION}
+          />
         </fieldset>
       </form>
     );

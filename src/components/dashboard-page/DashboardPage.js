@@ -9,7 +9,6 @@ import NetworkStatusBar from '../common/network-status-bar/NetworkStatusBar';
 import withNetworkStatus from '../common/HOCs/withNetworkStatus';
 import Plus from '../../icons/plus.svg';
 import Key from '../../icons/key.svg';
-import withPopover from '../../components/common/HOCs/withPopover';
 
 const electron = window.require('electron');
 const fs = electron.remote.require('fs');
@@ -27,8 +26,6 @@ const staticTexts = new Map([
   ['alert.text.empty_file', 'Chosen file is empty. You have to choose password file.'],
   ['alert.text.user_online', 'Being online due creating password file may cause password interception.'],
 ]);
-
-const TileWithPopover = withPopover({ text: 'Testowy text!', removeChildrenMargins: true })(Tile);
 
 class DashboardPage extends React.Component {
   constructor() {
@@ -95,13 +92,6 @@ class DashboardPage extends React.Component {
         />
 
         <Tile
-          doAfterClick={this.showOpenFileDialogIfOffline}
-          imageSource={Key}
-          alternativeText={staticTexts.get('alt.decrypt')}
-          descriptiveText={staticTexts.get('desc.decrypt')}
-        />
-
-        <TileWithPopover
           doAfterClick={this.showOpenFileDialogIfOffline}
           imageSource={Key}
           alternativeText={staticTexts.get('alt.decrypt')}
