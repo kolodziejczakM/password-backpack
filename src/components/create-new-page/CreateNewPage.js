@@ -6,7 +6,7 @@ import AddServiceForm from './add-service-form/AddServiceForm';
 import ListIcon from '../../icons/list.svg';
 import './CreateNewPage.css';
 import Service from './service/Service';
-import PasswordValuesCipheringProvider from '../../providers/PasswordValuesCipheringProvider';
+import CipheringProvider from '../../providers/CipheringProvider';
 
 const electron = window.require('electron');
 const fs = electron.remote.require('fs');
@@ -108,7 +108,7 @@ class CreateNewPage extends React.Component {
       return;
     }
 
-    const encryptedServices = PasswordValuesCipheringProvider.encryptServicesPasswords(
+    const encryptedServices = CipheringProvider.encryptServices(
       this.state.services,
       passwordFileSalt,
     );

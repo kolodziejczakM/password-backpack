@@ -7,6 +7,7 @@ import './DashboardPage.css';
 import Tile from '../common/tile/Tile';
 import NetworkStatusBar from '../common/network-status-bar/NetworkStatusBar';
 import withNetworkStatus from '../common/HOCs/withNetworkStatus';
+import CipheringProvider from '../../providers/CipheringProvider';
 import Plus from '../../icons/plus.svg';
 import Key from '../../icons/key.svg';
 
@@ -25,6 +26,9 @@ const staticTexts = new Map([
   ['desc.decrypt', 'Decrypt existing file'],
   ['alert.text.empty_file', 'Chosen file is empty. You have to choose password file.'],
   ['alert.text.user_online', 'Being online due creating password file may cause password interception.'],
+  ['salt.decryption_text',
+    'Type the password that you\'ve used to protect your password file.'],
+  ['placeholder.password_file', 'e.g. jakMamaWypijeKawe12'],
 ]);
 
 class DashboardPage extends React.Component {
@@ -64,17 +68,34 @@ class DashboardPage extends React.Component {
     }
   }
 
-  parseJsonFile(name) {
+  async parseJsonFile(name) {
     if (!name) {
       return;
     }
 
     const [filePath] = name;
 
+    const passwordFileSalt = await swal(staticTexts.get('salt.decryption_text'), {
+      content: {
+        element: 'input',
+        attributes: {
+          placeholder: staticTexts.get('placeholder.password_file'),
+          type: 'password',
+        },
+      },
+    });
+
     fs.readFile(filePath, { encoding: 'utf-8' }, (err, fileContent) => {
       if (!err && !isFileEmpty(fileContent)) {
-        console.log('ParseJsonFile: ', this, JSON.parse(fileContent));
-        // const data = JSON.parse(fileContent);
+        const encryptedFileContent = JSON.parse(fileContent);
+        const decryptedFileContent = CipheringProvider.decryptServices(
+          encryptedFileContent,
+          passwordFileSalt,
+        );
+
+        console.log('encrypted: ', encryptedFileContent);
+        console.log('decrypted: ', decryptedFileContent);
+        console.log('this: ', this);
       } else {
         swal(staticTexts.get('alert.text.empty_file'));
       }

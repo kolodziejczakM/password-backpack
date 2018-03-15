@@ -1,7 +1,5 @@
 .service {
   padding: 10px;
-  display: grid;
-  grid-template-rows: repeat(2, auto);
   width: 200px;
   border: 1px solid #000;
   border-radius: 5px;
@@ -37,6 +35,7 @@
 
 .service__data-list {
   list-style-type: none;
+  word-wrap: break-word;
   padding: 0;
   margin: 0;
 }
