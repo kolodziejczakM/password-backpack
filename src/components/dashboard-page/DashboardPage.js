@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { compose } from 'ramda';
 import './DashboardPage.css';
 import Tile from '../common/tile/Tile';
-import Service from '../create-new-page/service/Service';
+import ServiceDecrypted from './ServiceDecrypted/ServiceDecrypted';
 import NetworkStatusBar from '../common/network-status-bar/NetworkStatusBar';
 import withNetworkStatus from '../common/HOCs/withNetworkStatus';
 import CipheringProvider from '../../providers/CipheringProvider';
@@ -30,6 +30,7 @@ const staticTexts = new Map([
   ['salt.decryption_text',
     'Type the password that you\'ve used to protect your password file.'],
   ['placeholder.password_file', 'e.g. jakMamaWypijeKawe12'],
+  ['alert.lack_of_password_for_file_unlock', 'You have to provide password that will unlock your password file to continue.'],
 ]);
 
 class DashboardPage extends React.Component {
@@ -89,6 +90,19 @@ class DashboardPage extends React.Component {
       },
     });
 
+    if (passwordFileSalt === null || !passwordFileSalt.length) {
+      const userWantsToContinue = await swal(
+        staticTexts.get('alert.lack_of_password_for_file_unlock'),
+        { buttons: { cancel: true, confirm: true }, dangerMode: true },
+      );
+
+      if (userWantsToContinue) {
+        this.parseJsonFile();
+      }
+
+      return;
+    }
+
     fs.readFile(filePath, { encoding: 'utf-8' }, (err, fileContent) => {
       if (!err && !isFileEmpty(fileContent)) {
         const encryptedFileContent = JSON.parse(fileContent);
@@ -126,15 +140,12 @@ class DashboardPage extends React.Component {
         <section className="service-list">
           {
             this.state.services.map(service => (
-              <Service
+              <ServiceDecrypted
                 key={service.serviceCore.id}
-                id={service.serviceCore.id}
                 icon={service.serviceCore.icon}
                 name={service.serviceCore.name}
-                templateName={service.serviceCore.templateName}
                 passwordValue={service.serviceCore.passwordValue}
                 passwordTypeValue={service.passwordType.value}
-                onDeleteClick={this.dropService}
               />
             ))}
         </section>

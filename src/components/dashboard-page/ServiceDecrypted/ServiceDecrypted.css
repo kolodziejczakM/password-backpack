@@ -1,0 +1,52 @@
+.service-decrypted,
+.service-decrypted:focus {
+  perspective: 1000px;
+  outline: none;
+  border: none;
+  background: transparent;
+}
+
+.service-decrypted.clicked
+.service-decrypted__inner-container {
+  transform: rotateY(180deg);
+}
+
+.service-decrypted,
+.service-decrypted__front,
+.service-decrypted__back {
+  width: 240px;
+}
+
+.service-decrypted__inner-container {
+  position: relative;
+	transition: 0.6s;
+	transform-style: preserve-3d;
+}
+
+.service-decrypted__front,
+.service-decrypted__back {
+  backface-visibility: hidden;
+  padding: 10px;
+  border: 1px solid #000;
+  position: absolute;
+	top: 0;
+  left: 0;
+}
+
+.service-decrypted__front {
+	z-index: 2;
+}
+
+.service-decrypted__back {
+	transform: rotateY(180deg);
+}
+
+.service-decrypted__icon {
+  margin-bottom: 15px;
+}
+
+.service-decrypted__data-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
