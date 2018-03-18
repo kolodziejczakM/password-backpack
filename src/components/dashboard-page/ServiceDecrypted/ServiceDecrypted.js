@@ -60,7 +60,7 @@ class ServiceDecrypted extends React.Component {
             </ul>
           </section>
           <section className="service-decrypted__back">
-            <span>{passwordValue}</span>
+            <span className="password-value">{passwordValue}</span>
           </section>
         </div>
       </button>

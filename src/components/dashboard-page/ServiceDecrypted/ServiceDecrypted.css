@@ -1,13 +1,20 @@
 .service-decrypted,
 .service-decrypted:focus {
+  cursor: pointer;
   perspective: 1000px;
   outline: none;
   border: none;
-  background: transparent;
+  padding: 0;
+}
+
+.service-decrypted:hover .service-decrypted__front,
+.service-decrypted.clicked:hover .service-decrypted__back{
+  background: #dfdfdf;
 }
 
 .service-decrypted.clicked
-.service-decrypted__inner-container {
+.service-decrypted__inner-container,
+.service-decrypted__back {
   transform: rotateY(180deg);
 }
 
@@ -27,6 +34,8 @@
 .service-decrypted__back {
   backface-visibility: hidden;
   padding: 10px;
+  min-height: 125px;
+  word-break: break-all;
   border: 1px solid #000;
   position: absolute;
 	top: 0;
@@ -38,7 +47,9 @@
 }
 
 .service-decrypted__back {
-	transform: rotateY(180deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .service-decrypted__icon {
@@ -49,4 +60,8 @@
   list-style-type: none;
   margin: 0;
   padding: 0;
+}
+
+.password-value {
+  font-size: 20px;
 }
