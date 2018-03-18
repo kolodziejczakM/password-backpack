@@ -97,7 +97,7 @@ class DashboardPage extends React.Component {
       );
 
       if (userWantsToContinue) {
-        this.parseJsonFile();
+        this.parseJsonFile(name);
       }
 
       return;
