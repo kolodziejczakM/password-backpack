@@ -10,7 +10,7 @@ export default () => {
 
   const links = {
     iconsAuthor: {
-      text: 'Pixel Buddha & Freepik & Dave Gandy & Pixel perfect & UIUXER & Smashicons',
+      text: 'Pixel Buddha & Freepik & Dave Gandy & Pixel perfect & UIUXER & Smashicons && Eleonor Wang',
     },
     iconsPage: {
       text: 'www.flaticon.com',

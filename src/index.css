@@ -11,6 +11,50 @@
 }
 
 html, body {
-  height: 100%;
+  height: 100vh;
   font-family: LatoRegular, sans-serif;
+}
+
+html {
+  border: 1px solid #bbdaa9;
+  overflow: hidden;
+}
+
+body {
+  overflow: auto;
+}
+
+::-webkit-scrollbar {
+  background-color: #fff;
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb:window-inactive,
+::-webkit-scrollbar-thumb {
+  background:  #d3d3d3;
+}
+
+.password-backpack-select,
+.password-backpack-button {
+  background: transparent;
+}
+
+.password-backpack-button {
+  border: 1px solid #d3d3d3;
+  background: #fff;
+  transition: background-color 0.4s ease-in-out;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.password-backpack-button:hover {
+  background: #bbdaa9;
+}
+
+.password-backpack-button:disabled {
+  cursor: default;
+}
+
+.password-backpack-button:disabled.password-backpack-button:hover {
+ background: #fff;
 }

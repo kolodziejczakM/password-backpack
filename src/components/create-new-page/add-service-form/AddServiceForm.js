@@ -137,7 +137,7 @@ class AddServiceForm extends React.Component {
           <label className="add-service-form__label-container">
             <span className="add-service-form__label">{staticTexts.get('label.choose.service_template')}</span>
             <select
-              className="add-service-form__select"
+              className="add-service-form__select password-backpack-select"
               value={this.state.service.templateName}
               onChange={this.onWholeServiceChange}
             >
@@ -161,7 +161,8 @@ class AddServiceForm extends React.Component {
           </label>
           <label className="add-service-form__label-container">
             <select
-              className="add-service-form__select add-service-form__select--label"
+              className="
+              add-service-form__select add-service-form__select--label password-backpack-select"
               value={this.state.passwordType.label}
               onChange={this.onPasswordTypeChange}
             >
@@ -182,7 +183,7 @@ class AddServiceForm extends React.Component {
           </label>
           <button
             disabled={!this.state.form.validForm}
-            className="add-service-form__submit-btn"
+            className="add-service-form__submit-btn password-backpack-button"
             type="submit"
           >
             {staticTexts.get('button.submit_label')}

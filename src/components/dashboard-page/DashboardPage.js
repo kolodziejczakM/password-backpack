@@ -6,7 +6,6 @@ import { compose } from 'ramda';
 import './DashboardPage.css';
 import Tile from '../common/tile/Tile';
 import ServiceDecrypted from './ServiceDecrypted/ServiceDecrypted';
-import NetworkStatusBar from '../common/network-status-bar/NetworkStatusBar';
 import withNetworkStatus from '../common/HOCs/withNetworkStatus';
 import CipheringProvider from '../../providers/CipheringProvider';
 import Plus from '../../icons/plus.svg';
@@ -135,18 +134,17 @@ class DashboardPage extends React.Component {
           descriptiveText={staticTexts.get('desc.decrypt')}
         />
 
-        <NetworkStatusBar />
+        {this.state.services.length > 0 && <hr />}
 
         <section className="service-list">
-          {
-            this.state.services.map(service => (
-              <ServiceDecrypted
-                key={service.serviceCore.id}
-                icon={service.serviceCore.icon}
-                name={service.serviceCore.name}
-                passwordValue={service.serviceCore.passwordValue}
-                passwordTypeValue={service.passwordType.value}
-              />
+          {this.state.services.map(service => (
+            <ServiceDecrypted
+              key={service.serviceCore.id}
+              icon={service.serviceCore.icon}
+              name={service.serviceCore.name}
+              passwordValue={service.serviceCore.passwordValue}
+              passwordTypeValue={service.passwordType.value}
+            />
             ))}
         </section>
       </section>

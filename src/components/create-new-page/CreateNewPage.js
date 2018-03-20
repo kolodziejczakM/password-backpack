@@ -130,7 +130,7 @@ class CreateNewPage extends React.Component {
 
         <section className="create-new-page__make-file-section">
           <button
-            className="create-new-page__make-password-file-btn"
+            className="create-new-page__make-password-file-btn password-backpack-button"
             onClick={this.makePasswordFile}
             disabled={this.isServiceListEmpty()}
           >

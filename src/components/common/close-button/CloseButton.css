@@ -1,0 +1,15 @@
+.close-button {
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 10px;
+}
+
+.close-button:hover {
+  opacity: 0.5;
+}
+
+.close-button:focus {
+  outline: none;
+  border: none;
+}
