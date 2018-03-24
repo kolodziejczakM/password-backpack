@@ -11,7 +11,6 @@ const themes = {
 };
 
 const staticTexts = new Map([
-  ['label.online_status', 'Your internet status:'],
   ['status.online', 'Online'],
   ['status.offline', 'Offline'],
 ]);
@@ -31,7 +30,7 @@ const NetworkStatusBar = (props) => {
     return staticTexts.get('status.offline');
   };
 
-  return <aside className={getThemeClassName()}>{staticTexts.get('label.online_status')} {getNetworkStatusName()}</aside>;
+  return <aside className={getThemeClassName()}>{getNetworkStatusName()}</aside>;
 };
 
 NetworkStatusBar.propTypes = {

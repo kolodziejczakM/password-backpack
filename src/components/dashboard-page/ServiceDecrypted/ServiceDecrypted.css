@@ -5,11 +5,12 @@
   outline: none;
   border: none;
   padding: 0;
+  background: #fff;
 }
 
 .service-decrypted:hover .service-decrypted__front,
-.service-decrypted.clicked:hover .service-decrypted__back{
-  background: #dfdfdf;
+.service-decrypted.clicked:hover .service-decrypted__back {
+  background: #fff;
 }
 
 .service-decrypted.clicked
@@ -27,14 +28,17 @@
 .service-decrypted__inner-container {
   position: relative;
 	transition: 0.6s;
-	transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  height: 125px;
 }
 
 .service-decrypted__front,
 .service-decrypted__back {
+  background: #fff;
   backface-visibility: hidden;
   padding: 10px;
-  min-height: 125px;
+  height: 125px;
+  overflow: auto;
   word-break: break-all;
   border: 1px solid #000;
   position: absolute;
@@ -43,7 +47,11 @@
 }
 
 .service-decrypted__front {
-	z-index: 2;
+  z-index: 2;
+}
+
+.service-decrypted.clicked .service-decrypted__front::-webkit-scrollbar-thumb {
+  background: #fff;
 }
 
 .service-decrypted__back {

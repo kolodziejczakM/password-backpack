@@ -1,6 +1,6 @@
 .network-status-bar {
   opacity: 0.5;
-  padding: 10px 10px 5px;
+  padding: 10px 10px 1px;
 }
 
 .network-status-bar--online,
