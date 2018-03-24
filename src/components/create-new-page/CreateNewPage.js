@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import AddServiceForm from './add-service-form/AddServiceForm';
 import ListIcon from '../../icons/list.svg';
+import GoBackIcon from '../../icons/goback.svg';
 import './CreateNewPage.css';
 import Service from './service/Service';
 import CipheringProvider from '../../providers/CipheringProvider';
@@ -26,9 +27,11 @@ const staticTexts = new Map([
   ['placeholder.password_file', 'e.g. jakMamaWypijeKawe12'],
   ['alert.lack_of_password_for_file', 'You have to provide password that will protect your password file to continue.'],
   ['file_storage.location', 'Your file has been stored in:'],
+  ['alt.go_back', 'Click to go back'],
 ]);
 
 const noContentIconDimension = 80;
+const goBackiconDimension = 40;
 
 function writeJsonFile(cipheredServices, targetPathName) {
   if (!targetPathName) {
@@ -122,8 +125,15 @@ class CreateNewPage extends React.Component {
   render() {
     return (
       <section className="create-new-page">
-        <header>
-          <button onClick={this.goToDashboard}>{staticTexts.get('page.go_back')}</button>
+        <header className="create-new-page__header">
+          <button onClick={this.goToDashboard} className="go-back-button">
+            <img
+              alt={staticTexts.get('alt.go_back')}
+              src={GoBackIcon}
+              width={goBackiconDimension}
+              height={goBackiconDimension}
+            />
+          </button>
           <h1 className="create-new-page-heading-text">{staticTexts.get('page.create_new.header')}</h1>
         </header>
         <AddServiceForm onFormSubmit={this.appendService} />

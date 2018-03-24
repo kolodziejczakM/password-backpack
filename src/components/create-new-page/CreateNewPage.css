@@ -32,3 +32,19 @@
 .no-services-icon {
   margin-bottom: 15px;
 }
+
+.create-new-page__header {
+  display: flex;
+}
+
+.go-back-button
+,.go-back-button:focus {
+  cursor: pointer;
+  background: transparent;
+  outline: none;
+  border: none;
+}
+
+.go-back-button:hover {
+  opacity: 0.75;
+}
