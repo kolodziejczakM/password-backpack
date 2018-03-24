@@ -34,6 +34,7 @@ const staticTexts = new Map([
   ['alert.lack_of_password_for_file_unlock', 'You have to provide password that will unlock your password file to continue.'],
   ['no_decrypted_content', 'Decrypt file to see services on the list'],
   ['no_decrypted_content.icon.alt', 'List image: there is no decrypted content'],
+  ['decryption.error', 'There are no services that can be decrypted in this file:'],
 ]);
 
 const noContentIconDimension = 80;
@@ -115,6 +116,14 @@ class DashboardPage extends React.Component {
           encryptedFileContent,
           passwordFileSalt,
         );
+
+        if (!decryptedFileContent[0].serviceCore) {
+          swal(
+            `${staticTexts.get('decryption.error')} ${filePath}`,
+            { icon: 'error' },
+          );
+          return;
+        }
 
         this.setState({ services: decryptedFileContent });
       } else {
