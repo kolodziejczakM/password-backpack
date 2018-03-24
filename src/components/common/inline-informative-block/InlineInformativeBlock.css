@@ -1,0 +1,9 @@
+.inline-informative-block__inner-container {
+  opacity: 0.5;
+  text-align: center;
+  padding: 20px;
+}
+
+.inline-informative-block__icon {
+  margin-bottom: 15px;
+}

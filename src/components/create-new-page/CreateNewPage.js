@@ -7,6 +7,7 @@ import ListIcon from '../../icons/list.svg';
 import GoBackIcon from '../../icons/goback.svg';
 import './CreateNewPage.css';
 import Service from './service/Service';
+import InlineInformativeBlock from '../common/inline-informative-block/InlineInformativeBlock';
 import CipheringProvider from '../../providers/CipheringProvider';
 
 const electron = window.require('electron');
@@ -150,16 +151,13 @@ class CreateNewPage extends React.Component {
         <hr />
         {
           this.isServiceListEmpty() &&
-          <div className="no-services-container">
-            <img
-              className="no-services-icon"
-              alt={staticTexts.get('no_content.icon.alt')}
-              src={ListIcon}
-              width={noContentIconDimension}
-              height={noContentIconDimension}
-            />
-            <h3>{staticTexts.get('no_content')}</h3>
-          </div>
+          <InlineInformativeBlock
+            iconSrc={ListIcon}
+            iconWidth={noContentIconDimension}
+            iconHeight={noContentIconDimension}
+            altText={staticTexts.get('no_content.icon.alt')}
+            text={staticTexts.get('no_content')}
+          />
         }
 
         <section className="service-list">

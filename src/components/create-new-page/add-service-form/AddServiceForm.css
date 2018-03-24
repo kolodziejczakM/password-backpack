@@ -1,7 +1,7 @@
 .add-service-form {
   display: grid;
   grid-template-columns: 440px auto;
-  padding: 20px;
+  padding: 10px 10px 0;
 }
 
 .add-service-form__label-container {

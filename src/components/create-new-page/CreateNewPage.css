@@ -23,16 +23,6 @@
   grid-template-columns: repeat(3, 1fr);
 }
 
-.no-services-container {
-  opacity: 0.5;
-  text-align: center;
-  padding: 20px;
-}
-
-.no-services-icon {
-  margin-bottom: 15px;
-}
-
 .create-new-page__header {
   display: flex;
 }

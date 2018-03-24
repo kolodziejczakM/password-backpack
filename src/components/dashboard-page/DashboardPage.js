@@ -5,9 +5,11 @@ import { withRouter } from 'react-router-dom';
 import { compose } from 'ramda';
 import './DashboardPage.css';
 import Tile from '../common/tile/Tile';
+import InlineInformativeBlock from '../common/inline-informative-block/InlineInformativeBlock';
 import ServiceDecrypted from './ServiceDecrypted/ServiceDecrypted';
 import withNetworkStatus from '../common/HOCs/withNetworkStatus';
 import CipheringProvider from '../../providers/CipheringProvider';
+import ListIcon from '../../icons/list.svg';
 import Plus from '../../icons/plus.svg';
 import Key from '../../icons/key.svg';
 
@@ -30,7 +32,11 @@ const staticTexts = new Map([
     'Type the password that you\'ve used to protect your password file.'],
   ['placeholder.password_file', 'e.g. jakMamaWypijeKawe12'],
   ['alert.lack_of_password_for_file_unlock', 'You have to provide password that will unlock your password file to continue.'],
+  ['no_decrypted_content', 'Decrypt file to see services on the list'],
+  ['no_decrypted_content.icon.alt', 'List image: there is no decrypted content'],
 ]);
+
+const noContentIconDimension = 80;
 
 class DashboardPage extends React.Component {
   constructor() {
@@ -134,7 +140,19 @@ class DashboardPage extends React.Component {
           descriptiveText={staticTexts.get('desc.decrypt')}
         />
 
-        {this.state.services.length > 0 && <hr />}
+        <hr />
+        {
+          this.state.services.length === 0 &&
+          <div className="no-decrypted-services-container">
+            <InlineInformativeBlock
+              iconSrc={ListIcon}
+              iconWidth={noContentIconDimension}
+              iconHeight={noContentIconDimension}
+              altText={staticTexts.get('no_decrypted_content.icon.alt')}
+              text={staticTexts.get('no_decrypted_content')}
+            />
+          </div>
+        }
 
         <section className="service-list">
           {this.state.services.map(service => (
