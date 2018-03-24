@@ -10,7 +10,7 @@
 
 .service-decrypted:hover .service-decrypted__front,
 .service-decrypted.clicked:hover .service-decrypted__back {
-  background: #fff;
+  background: #ebe5e5;
 }
 
 .service-decrypted.clicked
