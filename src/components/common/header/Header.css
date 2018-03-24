@@ -14,12 +14,12 @@
 .application-header__network-status {
   position: absolute;
   top: 0;
-  right: 0;
+  left: 20px;
 }
 
 .application-header__close-app-btn {
   -webkit-app-region: no-drag;
-  position: absolute;
+  position: fixed;
   top: 0;
-  left: 0;
+  right: 15px;
 }
