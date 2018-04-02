@@ -7,6 +7,6 @@ import CreateNewPage from './components/create-new-page/CreateNewPage';
 export default (
   <Switch>
     <Route exact path="/" component={DashboardPage} />
-    <Route exact path="/create-new" component={CreateNewPage} />
+    <Route exact path="/form" component={CreateNewPage} />
   </Switch>
 );

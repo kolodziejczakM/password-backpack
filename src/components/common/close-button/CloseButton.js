@@ -5,8 +5,7 @@ import './CloseButton.css';
 const { remote } = window.require('electron');
 
 const closeApplication = () => {
-  const win = remote.getCurrentWindow();
-  win.close();
+  remote.getCurrentWindow().close();
 };
 
 const staticTexts = new Map([

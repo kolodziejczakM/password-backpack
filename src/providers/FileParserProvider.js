@@ -11,7 +11,7 @@ const staticTexts = new Map([
   ['salt.decryption_text',
     'Type the password that you\'ve used to protect your password file.'],
   ['placeholder.password_file', 'e.g. jakMamaWypijeKawe12'],
-  ['decryption.error', 'There are no services that can be decrypted in this file:'],
+  ['decryption.error', 'Error occured during decryption:'],
 ]);
 
 export default class FileParserProvider {

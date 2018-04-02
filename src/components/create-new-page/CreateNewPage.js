@@ -2,6 +2,7 @@ import React from 'react';
 import swal from 'sweetalert';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import { isEmpty } from 'ramda';
 import AddServiceForm from './add-service-form/AddServiceForm';
 import ListIcon from '../../icons/list.svg';
 import GoBackIcon from '../../icons/goback.svg';
@@ -17,12 +18,14 @@ const { dialog } = electron.remote;
 const staticTexts = new Map([
   ['common.error', 'Something bad happened, try again.'],
   ['page.create_new.header', 'Create new password file'],
+  ['page.edit.header', 'Edit password file'],
   ['page.go_back', 'Go back'],
   ['alt.service_new', 'Click to add new service'],
   ['desc.service_new', 'Add new service'],
   ['no_content', 'Append service to see it on the list'],
   ['no_content.icon.alt', 'No content icon. You must service to see it here.'],
   ['btn.label.create_ps_file', 'Create password file'],
+  ['btn.label.edit_ps_file', 'Edit password file'],
   ['salt.creation_text',
     'Type the password that will be used to protect your password file. Do not tell it anyone and keep it in a save place.'],
   ['placeholder.password_file', 'e.g. jakMamaWypijeKawe12'],
@@ -34,28 +37,19 @@ const staticTexts = new Map([
 const noContentIconDimension = 80;
 const goBackiconDimension = 40;
 
-function writeJsonFile(cipheredServices, targetPathName) {
-  if (!targetPathName) {
-    return;
+const informAfterWriteOperation = (outputFilePath, err) => {
+  if (err) {
+    swal(
+      staticTexts.get('common.error'),
+      { icon: 'error' },
+    );
+  } else {
+    swal(
+      `${staticTexts.get('file_storage.location')} ${outputFilePath}`,
+      { icon: 'success' },
+    );
   }
-
-  const [targetFolderPath] = targetPathName;
-  const outputFilePath = `${targetFolderPath}/${Date.now()}.json`;
-
-  fs.writeFile(outputFilePath, JSON.stringify(cipheredServices), (err) => {
-    if (err) {
-      swal(
-        staticTexts.get('common.error'),
-        { icon: 'error' },
-      );
-    } else {
-      swal(
-        `${staticTexts.get('file_storage.location')} ${outputFilePath}`,
-        { icon: 'success' },
-      );
-    }
-  });
-}
+};
 
 class CreateNewPage extends React.Component {
   constructor() {
@@ -67,7 +61,39 @@ class CreateNewPage extends React.Component {
 
     this.state = {
       services: [],
+      editMode: false,
     };
+  }
+
+  componentWillMount() {
+    if (this.props.location.state && !isEmpty(this.props.location.state)) {
+      this.setState({ services: this.props.location.state, editMode: true });
+    }
+  }
+
+  getFileProperties() {
+    if (this.state.editMode) {
+      return {
+        properties: ['openFile'],
+        filters: [{ name: 'All Files', extensions: ['json'] }],
+      };
+    }
+
+    return { properties: ['openDirectory'] };
+  }
+
+  writeJsonFile(cipheredServices, targetPathName) {
+    if (!targetPathName) {
+      return;
+    }
+
+    const fileName = this.state.editMode ? '' : `/${Date.now()}.json`;
+    const [targetFolderPath] = targetPathName;
+    const outputFilePath = `${targetFolderPath}${fileName}`;
+
+    fs.writeFile(outputFilePath, JSON.stringify(cipheredServices), (err) => {
+      informAfterWriteOperation(outputFilePath, err);
+    });
   }
 
   goToDashboard() {
@@ -117,9 +143,10 @@ class CreateNewPage extends React.Component {
       passwordFileSalt,
     );
 
+
     dialog.showOpenDialog(
-      { properties: ['openDirectory'] },
-      writeJsonFile.bind(null, encryptedServices),
+      this.getFileProperties(),
+      this.writeJsonFile.bind(this, encryptedServices),
     );
   }
 
@@ -135,7 +162,9 @@ class CreateNewPage extends React.Component {
               height={goBackiconDimension}
             />
           </button>
-          <h1 className="create-new-page-heading-text">{staticTexts.get('page.create_new.header')}</h1>
+          <h1 className="create-new-page-heading-text">
+            {this.state.editMode ? staticTexts.get('page.edit.header') : staticTexts.get('page.create_new.header')}
+          </h1>
         </header>
         <AddServiceForm onFormSubmit={this.appendService} />
 
@@ -145,7 +174,7 @@ class CreateNewPage extends React.Component {
             onClick={this.makePasswordFile}
             disabled={this.isServiceListEmpty()}
           >
-            {staticTexts.get('btn.label.create_ps_file')}
+            {this.state.editMode ? staticTexts.get('btn.label.edit_ps_file') : staticTexts.get('btn.label.create_ps_file')}
           </button>
         </section>
         <hr />
@@ -182,6 +211,12 @@ class CreateNewPage extends React.Component {
 
 CreateNewPage.propTypes = {
   history: PropTypes.shape({ push: PropTypes.func }).isRequired,
+  location: PropTypes.shape({
+    hash: PropTypes.string,
+    pathname: PropTypes.string,
+    search: PropTypes.string,
+    state: PropTypes.arrayOf(PropTypes.object),
+  }).isRequired,
 };
 
 export default withRouter(CreateNewPage);
