@@ -1,7 +1,7 @@
 {
   "name": "password-backpack",
   "description": "Secure password manager",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "author": {
     "name": "Marcin Kołodziejczak",
@@ -31,7 +31,7 @@
     "start-dev": "concurrently 'npm start' 'npm run electron-dev'",
     "preelectron-pack": "npm run build",
     "electron-pack": "electron-packager . --platform linux --arch x64 --out dist/",
-    "deb64": "electron-installer-debian --src dist/password-backpack-linux-x64/ --dest dist/installers/ --arch amd64 --description Secure password manager"
+    "deb64": "electron-installer-debian --src dist/password-backpack-linux-x64/ --dest dist/installers/ --arch amd64 --icon src/icons/backpack.svg  --description Secure password manager"
   },
   "pre-push": [
     "lint"
