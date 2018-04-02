@@ -1,7 +1,7 @@
 {
   "name": "password-backpack",
   "description": "Secure password manager",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "author": {
     "name": "Marcin Kołodziejczak",
@@ -29,9 +29,10 @@
     "eject": "react-scripts eject",
     "electron-dev": "ELECTRON_START_URL=http://localhost:3000 electron public/electron.js",
     "start-dev": "concurrently 'npm start' 'npm run electron-dev'",
-    "preelectron-pack": "npm run build",
-    "electron-pack": "electron-packager . --platform linux --arch x64 --out dist/",
-    "deb64": "electron-installer-debian --src dist/password-backpack-linux-x64/ --dest dist/installers/ --arch amd64 --icon src/icons/backpack.svg  --description Secure password manager"
+    "prestart-build": "npm run build",
+    "start-build": "node prebuild.js",
+    "prebuild-app": "npm run start-build",
+    "build-app": "npx electron-builder"
   },
   "pre-push": [
     "lint"
@@ -39,8 +40,7 @@
   "devDependencies": {
     "concurrently": "^3.5.1",
     "electron": "^1.8.2",
-    "electron-installer-debian": "^0.8.1",
-    "electron-packager": "^11.0.1",
+    "electron-builder": "^20.8.1",
     "eslint": "^4.18.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.9.0",
