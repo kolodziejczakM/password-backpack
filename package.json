@@ -33,6 +33,14 @@
     "prebuild-app": "npm run start-build",
     "build-app": "npx electron-builder"
   },
+  "build": {
+    "productName": "Password backpack",
+    "win":{
+      "target": "nsis",
+      "icon": "build/icon.ico",
+      "publisherName": "Marcin Kołodziejczak"
+    }
+  },
   "pre-push": [
     "lint"
   ],

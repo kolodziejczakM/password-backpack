@@ -7,10 +7,10 @@ It becomes useful when you have lots of accounts on various services and you jus
 
 # Installation
 
-## Simple installation
+## Simple installation (v. 1.0.2)
 1. Linux
 2. Windows
-## Installation (via local build)
+## Installation via local build (recommended)
 1. Clone repository / download as .ZIP, open it
 2. Run ```npm install``` (Node.js has to be installed)
 3. run ```npm run build-app```
