@@ -8,13 +8,9 @@ It becomes useful when you have lots of accounts on various services and you jus
 # Installation
 
 ## Simple installation
-1. Clone repository / download as .ZIP, open it
-2. Go to ```installers``` directory and run installation file which ends with:
-* ```.exe``` if you are on Windows
-* ```.AppImage``` if you are on Linux
-3. Run installation file && have fun
-
-## Installation via local build
+1. Linux
+2. Windows
+## Installation (via local build)
 1. Clone repository / download as .ZIP, open it
 2. Run ```npm install``` (Node.js has to be installed)
 3. run ```npm run build-app```
