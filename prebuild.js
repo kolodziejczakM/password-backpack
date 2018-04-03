@@ -17,4 +17,4 @@ function copyFile(source, target) {
 }
 
 copyFile('./icon.icns', './build/icon.icns');
-copyFile('./icon.ico', './build/icon.ico');
+copyFile('./icon.png', './build/icon.png');
