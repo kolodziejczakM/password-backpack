@@ -1,4 +1,4 @@
-import { createCipher, createDecipher } from 'crypto';
+const { createCipher, createDecipher } = require('crypto');
 
 const algorithm = 'aes-256-ctr';
 const encodingFormat = {
