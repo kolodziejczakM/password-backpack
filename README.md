@@ -7,13 +7,14 @@ It becomes useful when you have lots of accounts on various services and you jus
 
 # Installation
 
-## Simple installation (v. 1.0.2)
-1. Linux
-2. Windows
 ## Installation via local build (recommended)
 1. Clone repository / download as .ZIP, open it
 2. Run ```npm install``` (Node.js has to be installed)
 3. run ```npm run build-app```
+
+## Simple installation (v. 1.0.2)
+1. Linux
+2. Windows
 
 If you encounter difficulties during linting phase, like:
 >Expected linebreaks to be 'LF' but found 'CRLF'  linebreak-style
@@ -23,6 +24,10 @@ just add ``` "linebreak-style": 0``` into ```eslintrc.json```.
 4. You should have your installation inside /dist directory with proper extension (.AppImage - Linux, .exe - Windows)
 5. Run installation file && have fun.
 
+# Development
+To start development simply run ```npm run start-dev```. This command will trigger Electron (with hot reloading) and Chrome.
+To run lint: ```npm run lint```
+Lint is triggered on every GIT push via ```pre-push``` package.
 ## License
 ### **MIT**
 **Copyright 2018 Marcin Kołodziejczak**
