@@ -1,5 +1,5 @@
 # Password backpack
-
+[![video-2018-04-03_22.45.13.gif](https://s1.gifyu.com/images/video-2018-04-03_22.45.13.gif)](https://gifyu.com/image/sjTX)
 # Description
 Password backpack is free, open-source crossplatform (Windows, Linux) app which gives you ability to store all passwords into one, ciphered passsword file which you can safely store everywhere.
 
@@ -20,9 +20,8 @@ just add ``` "linebreak-style": 0``` into ```eslintrc.json```.
 4. You should have your installation inside /dist directory with proper extension (.AppImage - Linux, .exe - Windows)
 5. Run installation file && have fun.
 
-## Simple installation (v. 1.0.2)
-1. Linux
-2. Windows
+## Simple installation (soon)
+Work in progress
 
 # Development
 To start development simply run ```npm run start-dev```. This command will trigger Electron (with hot reloading) and Chrome.
