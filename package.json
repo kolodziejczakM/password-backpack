@@ -1,7 +1,7 @@
 {
   "name": "password-backpack",
-  "description": "Secure password manager",
-  "version": "1.0.1",
+  "description": "Free, open-source, secure password manager",
+  "version": "1.0.2",
   "private": true,
   "author": {
     "name": "Marcin Kołodziejczak",

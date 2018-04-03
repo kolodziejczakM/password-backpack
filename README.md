@@ -9,9 +9,9 @@ It becomes useful when you have lots of accounts on various services and you jus
 
 ## Simple installation
 1. Clone repository / download as .ZIP, open it
-2. Go to dist/installers directory and run installation file which ends with:
-* .exe if you are on Windows
-* .AppImage if you are on Linux
+2. Go to ```installers``` directory and run installation file which ends with:
+* ```.exe``` if you are on Windows
+* ```.AppImage``` if you are on Linux
 3. Run installation file && have fun
 
 ## Installation via local build
@@ -29,7 +29,7 @@ just add ``` "linebreak-style": 0``` into ```eslintrc.json```.
 
 ## License
 ### **MIT**
-**Copyright 2017 Marcin Kołodziejczak**
+**Copyright 2018 Marcin Kołodziejczak**
 
 >Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 >The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
