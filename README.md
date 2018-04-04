@@ -1,10 +1,13 @@
-# Password backpack
-![Presentation gif](https://s1.gifyu.com/images/video-2018-04-03_22.45.13.gif)
+# Password backpack 
+<img src="https://badges.frapsoft.com/os/v2/open-source.png?v=103" /> <img src="https://badges.frapsoft.com/os/mit/mit.svg?v=1033" />
 
-# Description
 Password backpack is free, open-source crossplatform (Windows, Linux) app which gives you ability to store all passwords into one, ciphered passsword file which you can safely store everywhere.
 
 It becomes useful when you have lots of accounts on various services and you just can't remember all of them.
+
+[![demobdab92b627241b34.gif](https://s1.gifyu.com/images/demobdab92b627241b34.gif)](https://gifyu.com/image/sC7D)
+
+<img align="center" src="https://s1.gifyu.com/images/samplePB.png" alt="samplePB.png" border="0" />
 
 # Installation
 
