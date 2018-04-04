@@ -20,11 +20,14 @@
 }
 
 .popover-cloud {
+  --green: #5F7558;
+  --coal: #363535;
+
   position: absolute;
   word-wrap: break-word;
   color: black;
   padding: 15px 25px;
   border-radius: 5px;
-  box-shadow: 5px 5px 30px rgb(54, 53, 53);
-  border: 1px solid rgb(95, 117, 88);
+  box-shadow: 5px 5px 30px var(--coal);
+  border: 1px solid var(--green);
 }

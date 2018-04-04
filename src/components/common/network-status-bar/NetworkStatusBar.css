@@ -1,4 +1,8 @@
 .network-status-bar {
+  --white: #ffffff;
+  --red: #ff0000;
+  --green: #00ff00;
+
   opacity: 0.5;
   padding: 10px 10px 1px;
 }
@@ -6,13 +10,13 @@
 .network-status-bar--online,
 .network-status-bar--offline {
   background: transparent;
-  color: white;
+  color: var(--white);
 }
 
 .network-status-bar--online {
-  border-bottom: 3px solid red;
+  border-bottom: 3px solid var(--red);
 }
 
 .network-status-bar--offline {
-  border-bottom: 3px solid green;
+  border-bottom: 3px solid var(--green);
 }

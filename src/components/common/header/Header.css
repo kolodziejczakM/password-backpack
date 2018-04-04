@@ -1,10 +1,11 @@
 .application-header {
+  --green: #699252;
   -webkit-app-region: drag;
   position: relative;
   text-align: center;
   padding: 20px 0;
-  background: #699252;
-  box-shadow: 0 2px 5px #699252;
+  background: var(--green);
+  box-shadow: 0 2px 5px var(--green);
 }
 
 .application-heading-text {
@@ -36,6 +37,10 @@
   background: none;
   border: none;
   cursor: pointer;
+}
+
+.show-authors-btn:focus {
+  outline: none;
 }
 
 .show-authors-btn:hover {

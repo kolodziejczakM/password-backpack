@@ -10,7 +10,14 @@
         url('./fonts/LatoLatin-Semibold.woff') format('woff');
 }
 
-html, body {
+:root {
+  --white: #fff;
+  --light-gray: #d3d3d3;
+  --light-green: #bbdaa9;
+}
+
+html,
+body {
   height: 100vh;
   font-family: LatoRegular, sans-serif;
 }
@@ -25,13 +32,13 @@ body {
 }
 
 ::-webkit-scrollbar {
-  background-color: #fff;
+  background-color: var(--white);
   width: 10px;
 }
 
 ::-webkit-scrollbar-thumb:window-inactive,
 ::-webkit-scrollbar-thumb {
-  background:  #d3d3d3;
+  background: var(--light-gray);
 }
 
 .password-backpack-select,
@@ -40,15 +47,15 @@ body {
 }
 
 .password-backpack-button {
-  border: 1px solid #d3d3d3;
-  background: #fff;
+  border: 1px solid var(--light-gray);
+  background: var(--white);
   transition: background-color 0.4s ease-in-out;
   padding: 8px;
   cursor: pointer;
 }
 
 .password-backpack-button:hover {
-  background: #bbdaa9;
+  background: var(--light-green);
 }
 
 .password-backpack-button:disabled {
@@ -56,5 +63,5 @@ body {
 }
 
 .password-backpack-button:disabled.password-backpack-button:hover {
- background: #fff;
+ background: var(--white);
 }
