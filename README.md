@@ -1,4 +1,5 @@
-# Password backpack
+# Password backpack 
+<img src="https://badges.frapsoft.com/os/v2/open-source.png?v=103" /> <img src="https://badges.frapsoft.com/os/mit/mit.svg?v=1033" />
 
 Password backpack is free, open-source crossplatform (Windows, Linux) app which gives you ability to store all passwords into one, ciphered passsword file which you can safely store everywhere.
 
