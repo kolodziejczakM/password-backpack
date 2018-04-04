@@ -16,5 +16,5 @@ function copyFile(source, target) {
   });
 }
 
-copyFile('./icon.icns', './build/icon.icns');
-copyFile('./icon.png', './build/icon.png');
+copyFile('./src/icons/icon.icns', './build/icon.icns');
+copyFile('./src/icons/icon.png', './build/icon.png');

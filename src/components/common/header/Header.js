@@ -4,8 +4,11 @@ import NetworkStatusBar from '../network-status-bar/NetworkStatusBar';
 import CloseButton from '../close-button/CloseButton';
 import './Header.css';
 
-const applicationName = 'Password backpack';
-const tagline = 'All passwords in one place';
+const staticTexts = new Map([
+  ['app.name', 'Password backpack'],
+  ['app.tagline', 'All passwords in one place'],
+  ['app.authors', 'Authors'],
+]);
 
 export default () => (
   <header className="application-header">
@@ -14,11 +17,14 @@ export default () => (
     </div>
     <Logo />
     <div className="application-header__text-wrapper">
-      <h1 className="application-heading-text">{applicationName}</h1>
-      <h3>{tagline}</h3>
+      <h1 className="application-heading-text">{staticTexts.get('app.name')}</h1>
+      <h3>{staticTexts.get('app.tagline')}</h3>
     </div>
-    <div className="application-header__network-status">
+    <div className="application-header__upper-left-corner">
       <NetworkStatusBar />
+      <div className="show-authors-btn-container">
+        <button className="show-authors-btn">{staticTexts.get('app.authors')}</button>
+      </div>
     </div>
   </header>
 );

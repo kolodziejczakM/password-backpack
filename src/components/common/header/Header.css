@@ -11,15 +11,33 @@
   margin-bottom: 0;
 }
 
-.application-header__network-status {
+.application-header__upper-left-corner {
   position: absolute;
   top: 0;
   left: 20px;
 }
 
 .application-header__close-app-btn {
-  -webkit-app-region: no-drag;
   position: fixed;
   top: 0;
   right: 15px;
+}
+
+.application-header__upper-left-corner,
+.application-header__close-app-btn {
+  -webkit-app-region: no-drag;
+}
+
+.show-authors-btn-container {
+  padding-top: 10px;
+}
+
+.show-authors-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.show-authors-btn:hover {
+  opacity: 0.8;
 }
