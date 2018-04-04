@@ -39,6 +39,11 @@
       "target": "nsis",
       "icon": "build/icon.png",
       "publisherName": "Marcin Kołodziejczak"
+    },
+    "linux":{
+      "target": "AppImage",
+      "icon": "build/icon.icns",
+      "maintainer": "Marcin Kołodziejczak"
     }
   },
   "pre-push": [
