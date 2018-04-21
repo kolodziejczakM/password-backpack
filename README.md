@@ -31,7 +31,7 @@ just add ``` "linebreak-style": 0``` into ```eslintrc.json```.
 
 # Development
 To start development simply run ```npm run start-dev```. This command will trigger Electron (with hot reloading) and Chrome.
-To run lint: ```npm run lint```
+To run lint: ```npm run lint```.
 Lint is triggered on every GIT push via ```pre-push``` package.
 ## License
 ### **MIT**
